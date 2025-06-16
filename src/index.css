@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply transition-colors duration-300;
+    /* Sonnenblume und Verlauf als Hintergrund */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d1f16 0%, #17432a 100%);
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: url('/src/assets/Sonnenblume.svg') no-repeat center center;
+    background-size: 80vw 80vw;
+    opacity: 0.13;
+    pointer-events: none;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-green-900/90 dark:bg-green-900/80 border border-green-800 dark:border-green-700 rounded-2xl shadow-xl backdrop-blur-lg;
+    box-shadow: 0 8px 32px 0 rgba(16,41,28,0.25);
+  }
+  .color-picker-wrapper .react-colorful {
+    width: 200px;
+    height: 150px;
+  }
+  
+  .color-picker-wrapper .react-colorful__saturation {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .color-picker-wrapper .react-colorful__hue {
+    height: 24px;
+    border-radius: 0 0 8px 8px;
+  }
+  
+  .color-picker-wrapper .react-colorful__pointer {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Focus styles */
+.focus-visible {
+  @apply outline-none ring-2 ring-green-500 ring-offset-2 dark:ring-offset-gray-900;
+}
+
+/* Animation for success states */
+@keyframes success-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.success-animation {
+  animation: success-pulse 0.3s ease-in-out;
+}

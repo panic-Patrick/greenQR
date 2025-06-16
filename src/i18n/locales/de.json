@@ -1,0 +1,132 @@
+{
+  "title": "GreenQR",
+  "subtitle": "Erstellen Sie schöne QR-Codes mit benutzerdefinierten Logos und Farben mit GreenQR",
+  "types": {
+    "url": "URL/Text",
+    "wifi": "WLAN",
+    "vcard": "Kontakt",
+    "email": "E-Mail"
+  },
+  "form": {
+    "typeLabel": "QR-Code Typ",
+    "urlLabel": "URL oder Text",
+    "urlPlaceholder": "URL oder Text für QR-Code eingeben",
+    "urlError": "Bitte geben Sie eine gültige URL oder Text ein",
+    "logoLabel": "Zentrales Logo (Optional)",
+    "logoPlaceholder": "PNG, JPG oder JPEG hochladen (max. 2MB)",
+    "logoError": "Bitte laden Sie eine gültige Bilddatei (PNG, JPG, JPEG) unter 2MB hoch",
+    "colorLabel": "QR-Code Farbe",
+    "colorPlaceholder": "Hex-Farbe eingeben",
+    "languageLabel": "Sprache",
+    "darkModeLabel": "Dunkler Modus",
+    "wifi": {
+      "ssid": "Netzwerkname (SSID)",
+      "ssidPlaceholder": "WLAN-Netzwerkname eingeben",
+      "security": "Sicherheitstyp",
+      "wpa": "WPA/WPA2",
+      "wep": "WEP",
+      "nopass": "Kein Passwort",
+      "password": "Passwort",
+      "passwordPlaceholder": "WLAN-Passwort eingeben",
+      "hidden": "Verstecktes Netzwerk"
+    },
+    "vcard": {
+      "firstName": "Vorname",
+      "firstNamePlaceholder": "Vorname eingeben",
+      "lastName": "Nachname",
+      "lastNamePlaceholder": "Nachname eingeben",
+      "organization": "Organisation",
+      "organizationPlaceholder": "Firma/Organisation eingeben",
+      "title": "Berufsbezeichnung",
+      "titlePlaceholder": "Berufsbezeichnung eingeben",
+      "phone": "Telefon",
+      "phonePlaceholder": "Telefonnummer eingeben",
+      "email": "E-Mail",
+      "emailPlaceholder": "E-Mail-Adresse eingeben",
+      "website": "Website",
+      "websitePlaceholder": "Website-URL eingeben",
+      "address": "Straße",
+      "addressPlaceholder": "Straße und Hausnummer eingeben",
+      "city": "Stadt",
+      "cityPlaceholder": "Stadt",
+      "state": "Bundesland",
+      "statePlaceholder": "Bundesland",
+      "zip": "PLZ",
+      "zipPlaceholder": "PLZ",
+      "country": "Land",
+      "countryPlaceholder": "Land"
+    },
+    "email": {
+      "to": "Empfänger E-Mail",
+      "toPlaceholder": "E-Mail-Adresse des Empfängers eingeben",
+      "subject": "Betreff",
+      "subjectPlaceholder": "E-Mail-Betreff eingeben",
+      "body": "Nachricht",
+      "bodyPlaceholder": "E-Mail-Nachricht eingeben"
+    }
+  },
+  "preview": {
+    "title": "Vorschau",
+    "generating": "QR-Code wird generiert...",
+    "download": "PNG herunterladen",
+    "downloadSuccess": "QR-Code erfolgreich heruntergeladen!",
+    "downloadError": "Fehler beim Herunterladen des QR-Codes",
+    "error": "Fehler beim Generieren des QR-Codes",
+    "loading": "QR-Code wird geladen...",
+    "downloadButton": "QR-Code als PNG herunterladen",
+    "emptyPlaceholder": "Text eingeben, um QR-Code zu erstellen"
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "invalidUrl": "Bitte geben Sie eine gültige URL ein",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "invalidHex": "Bitte geben Sie eine gültige Hex-Farbe ein",
+    "fileTooLarge": "Dateigröße muss unter 2MB sein",
+    "invalidFileType": "Nur PNG-, JPG- und JPEG-Dateien sind erlaubt"
+  },
+  "languages": {
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "upload": {
+    "clickToUpload": "Klicken zum Hochladen",
+    "dragAndDrop": "oder Datei hierher ziehen",
+    "removeImage": "Bild entfernen",
+    "fileTypes": "PNG, JPG, JPEG (max. 2MB)"
+  },
+  "tips": {
+    "wifi": {
+      "title": "WLAN QR-Code Tipps:",
+      "items": [
+        "• Verwenden Sie WPA/WPA2 für bessere Sicherheit",
+        "• Testen Sie den QR-Code vor dem Teilen",
+        "• Halten Sie Passwörter sicher"
+      ]
+    },
+    "vcard": {
+      "title": "Kontakt QR-Code Tipps:",
+      "items": [
+        "• Fügen Sie wichtige Kontaktinformationen hinzu",
+        "• Halten Sie Organisationsnamen kurz",
+        "• Testen Sie auf verschiedenen Geräten"
+      ]
+    },
+    "email": {
+      "title": "E-Mail QR-Code Tipps:",
+      "items": [
+        "• Halten Sie Betreffzeilen kurz",
+        "• Füllen Sie häufige Informationen voraus",
+        "• Testen Sie die E-Mail-Client-Kompatibilität"
+      ]
+    },
+    "url": {
+      "title": "URL QR-Code Tipps:",
+      "items": [
+        "• Halten Sie URLs kurz für schnelleres Scannen",
+        "• Verwenden Sie kontrastreiche Farben",
+        "• Testen Sie auf verschiedenen Geräten",
+        "• Stellen Sie ausreichend Ruhezone um den Code sicher"
+      ]
+    }
+  }
+}

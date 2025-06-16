@@ -1,0 +1,132 @@
+{
+  "title": "GreenQR",
+  "subtitle": "Generate beautiful QR codes with custom logos and colors with GreenQR",
+  "types": {
+    "url": "URL/Text",
+    "wifi": "WiFi",
+    "vcard": "Contact",
+    "email": "Email"
+  },
+  "form": {
+    "typeLabel": "QR Code Type",
+    "urlLabel": "URL or Text",
+    "urlPlaceholder": "Enter URL or text to generate QR code",
+    "urlError": "Please enter a valid URL or text",
+    "logoLabel": "Center Logo (Optional)",
+    "logoPlaceholder": "Upload PNG, JPG, or JPEG (max 2MB)",
+    "logoError": "Please upload a valid image file (PNG, JPG, JPEG) under 2MB",
+    "colorLabel": "QR Code Color",
+    "colorPlaceholder": "Enter hex color",
+    "languageLabel": "Language",
+    "darkModeLabel": "Dark Mode",
+    "wifi": {
+      "ssid": "Network Name (SSID)",
+      "ssidPlaceholder": "Enter WiFi network name",
+      "security": "Security Type",
+      "wpa": "WPA/WPA2",
+      "wep": "WEP",
+      "nopass": "No Password",
+      "password": "Password",
+      "passwordPlaceholder": "Enter WiFi password",
+      "hidden": "Hidden Network"
+    },
+    "vcard": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Enter last name",
+      "organization": "Organization",
+      "organizationPlaceholder": "Enter company/organization",
+      "title": "Job Title",
+      "titlePlaceholder": "Enter job title",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter phone number",
+      "email": "Email",
+      "emailPlaceholder": "Enter email address",
+      "website": "Website",
+      "websitePlaceholder": "Enter website URL",
+      "address": "Street Address",
+      "addressPlaceholder": "Enter street address",
+      "city": "City",
+      "cityPlaceholder": "City",
+      "state": "State",
+      "statePlaceholder": "State",
+      "zip": "ZIP Code",
+      "zipPlaceholder": "ZIP",
+      "country": "Country",
+      "countryPlaceholder": "Country"
+    },
+    "email": {
+      "to": "Recipient Email",
+      "toPlaceholder": "Enter recipient email address",
+      "subject": "Subject",
+      "subjectPlaceholder": "Enter email subject",
+      "body": "Message",
+      "bodyPlaceholder": "Enter email message"
+    }
+  },
+  "preview": {
+    "title": "Preview",
+    "generating": "Generating QR code...",
+    "download": "Download PNG",
+    "downloadSuccess": "QR code downloaded successfully!",
+    "downloadError": "Failed to download QR code",
+    "error": "Error generating QR code",
+    "loading": "Loading QR code...",
+    "downloadButton": "Download QR code as PNG",
+    "emptyPlaceholder": "Enter text to generate QR code"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidUrl": "Please enter a valid URL",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidHex": "Please enter a valid hex color",
+    "fileTooLarge": "File size must be under 2MB",
+    "invalidFileType": "Only PNG, JPG, and JPEG files are allowed"
+  },
+  "languages": {
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "upload": {
+    "clickToUpload": "Click to upload",
+    "dragAndDrop": "or drag and drop",
+    "removeImage": "Remove image",
+    "fileTypes": "PNG, JPG, JPEG (max 2MB)"
+  },
+  "tips": {
+    "wifi": {
+      "title": "WiFi QR Code Tips:",
+      "items": [
+        "• Use WPA/WPA2 for better security",
+        "• Test the QR code before sharing",
+        "• Keep passwords secure"
+      ]
+    },
+    "vcard": {
+      "title": "Contact QR Code Tips:",
+      "items": [
+        "• Include essential contact information",
+        "• Keep organization names concise",
+        "• Test on different devices"
+      ]
+    },
+    "email": {
+      "title": "Email QR Code Tips:",
+      "items": [
+        "• Keep subject lines short",
+        "• Pre-fill common information",
+        "• Test email client compatibility"
+      ]
+    },
+    "url": {
+      "title": "URL QR Code Tips:",
+      "items": [
+        "• Keep URLs short for faster scanning",
+        "• Use high contrast colors",
+        "• Test on different devices",
+        "• Ensure sufficient quiet zone around the code"
+      ]
+    }
+  }
+}

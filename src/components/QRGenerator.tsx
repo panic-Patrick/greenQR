@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe, Moon, Sun } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import { useDebounce } from '../hooks/useDebounce';
-import { useDarkMode } from '../hooks/useDarkMode';
 import { 
   isValidUrl, 
   isValidHexColor, 
@@ -53,7 +52,6 @@ const initialEmailConfig: EmailConfig = {
 
 export const QRGenerator: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const [isDarkMode, setIsDarkMode] = useDarkMode();
   
   // Form state
   const [qrType, setQrType] = useState<QRType>('url');
@@ -183,10 +181,6 @@ export const QRGenerator: React.FC = () => {
     }
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   React.useEffect(() => {
     validateForm();
   }, [validateForm]);
@@ -242,13 +236,6 @@ export const QRGenerator: React.FC = () => {
             </h1>
             <div className="flex space-x-2">
               <LanguageSwitcher />
-              <button
-                onClick={toggleDarkMode}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
             </div>
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-400">

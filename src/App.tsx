@@ -5,10 +5,10 @@ import { Footer } from './components/Footer';
 import './i18n/config';
 
 const LoadingSpinner = () => (
-  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+  <div className="min-h-screen bg-gray-900 flex items-center justify-center">
     <div className="text-center">
       <Loader2 className="w-8 h-8 animate-spin text-green-600 mx-auto mb-4" />
-      <p className="text-gray-600 dark:text-gray-400">Loading QR Generator...</p>
+      <p className="text-gray-400">Loading QR Generator...</p>
     </div>
   </div>
 );
@@ -16,7 +16,7 @@ const LoadingSpinner = () => (
 function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-gray-900">
         <main className="flex-grow">
           <QRGenerator />
         </main>

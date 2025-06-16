@@ -7,22 +7,24 @@ export const Footer = () => {
   const [isImprintOpen, setIsImprintOpen] = useState(false);
 
   return (
-    <footer className="w-full py-4 mt-8 border-t border-gray-700">
+    <footer className="w-full py-4 mt-8 border-t border-gray-700" role="contentinfo">
       <div className="container mx-auto px-4">
-        <div className="flex justify-center space-x-6 text-sm text-gray-400">
+        <nav className="flex justify-center space-x-6 text-sm text-gray-400" aria-label="Footer Navigation">
           <button
             onClick={() => setIsPrivacyOpen(true)}
             className="hover:text-gray-200 transition-colors"
+            aria-label="Datenschutzerklärung öffnen"
           >
             Datenschutz
           </button>
           <button
             onClick={() => setIsImprintOpen(true)}
             className="hover:text-gray-200 transition-colors"
+            aria-label="Impressum öffnen"
           >
             Impressum
           </button>
-        </div>
+        </nav>
       </div>
 
       <PrivacyModal

@@ -90,7 +90,8 @@
   },
   "upload": {
     "clickToUpload": "Klicken zum Hochladen",
-    "dragAndDrop": "oder Datei hierher ziehen",
+    "dragAndDrop": " Datei hierher ziehen",
+    "or": "oder",
     "removeImage": "Bild entfernen",
     "fileTypes": "PNG, JPG, JPEG (max. 2MB)"
   },

@@ -72,8 +72,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    <div role="group" aria-labelledby="file-upload-label">
+      <label 
+        id="file-upload-label"
+        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
         {label}
       </label>
       
@@ -93,7 +96,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         onClick={() => fileInputRef.current?.click()}
         role="button"
         tabIndex={0}
-        aria-label="Upload image file"
+        aria-label={t('upload.clickToUpload')}
+        aria-describedby={error ? 'file-error' : undefined}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -108,53 +112,90 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           onChange={handleFileChange}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           aria-describedby={error ? 'file-error' : undefined}
+          aria-label={t('upload.clickToUpload')}
         />
         
-        {selectedFile ? (
-          <div className="space-y-2">
-            <div className="flex items-center justify-center space-x-2">
-              <ImageIcon className="w-6 h-6 text-green-600" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                {selectedFile.name}
-              </span>
-            </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              {formatFileSize(selectedFile.size)}
-            </p>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center">
+            <svg
+              className="w-8 h-8 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              />
+            </svg>
           </div>
-        ) : (
-          <div className="space-y-2">
-            <Upload className="w-8 h-8 text-gray-400 mx-auto" />
-            <div className="text-sm">
-              <p className="text-gray-600 dark:text-gray-400">
-                <span className="font-medium text-green-600 hover:text-green-500">
-                  {t('upload.clickToUpload')}
-                </span>{' '}
-                {t('upload.dragAndDrop')}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                {t('upload.fileTypes')}
-              </p>
-            </div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="font-medium text-green-600 dark:text-green-400">
+              {t('upload.clickToUpload')}
+            </span>
+            <span className="block">{t('upload.or')}</span>
+            <span className="font-medium">
+              {t('upload.dragAndDrop')}
+            </span>
           </div>
-        )}
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {t('upload.fileTypes')}
+          </p>
+        </div>
       </div>
       
-      {selectedFile && (
-        <button
-          type="button"
-          onClick={clearFile}
-          className="mt-3 w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
-          aria-label={t('upload.removeImage')}
-        >
-          {t('upload.removeImage')}
-        </button>
-      )}
-      
       {error && (
-        <p id="file-error" className="mt-2 text-sm text-red-600 dark:text-red-400">
+        <p id="file-error" className="mt-2 text-sm text-red-600 dark:text-red-400" role="alert">
           {error}
         </p>
+      )}
+      
+      {selectedFile && (
+        <div className="mt-4 flex items-center justify-between bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
+          <div className="flex items-center space-x-3">
+            <svg
+              className="w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              {selectedFile.name}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={clearFile}
+            className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+            aria-label={t('upload.removeImage')}
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
       )}
     </div>
   );

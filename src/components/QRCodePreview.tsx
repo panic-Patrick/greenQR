@@ -81,10 +81,10 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
 
   if (!value.trim()) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center border border-gray-200 dark:border-gray-700" role="status" aria-label="Empty QR Code">
         <div className="w-64 h-64 mx-auto bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
           <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Enter text to generate QR code
+            {t('preview.emptyPlaceholder')}
           </p>
         </div>
       </div>
@@ -92,7 +92,7 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700" role="region" aria-label="QR Code Preview">
       <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
         {t('preview.title')}
       </h3>
@@ -100,21 +100,17 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
       <div 
         ref={containerRef}
         className="relative aspect-square w-full max-w-[256px] mx-auto mb-4 bg-white rounded-lg overflow-hidden"
+        role="img"
+        aria-label={`QR Code for ${value}`}
       >
         {isGenerating ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 dark:bg-gray-900" role="status" aria-label="Generating QR Code">
             <div className="text-center">
-              <Loader2 className="w-8 h-8 animate-spin text-green-600 mx-auto mb-2" />
+              <Loader2 className="w-8 h-8 animate-spin text-green-600 mx-auto mb-2" aria-hidden="true" />
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 {t('preview.generating')}
               </p>
             </div>
-          </div>
-        ) : !value.trim() ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-            <p className="text-base text-gray-400 dark:text-gray-300 text-center">
-              {t('preview.emptyPlaceholder')}
-            </p>
           </div>
         ) : (
           <QRCodeCanvas
@@ -129,6 +125,7 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
               excavate: true
             } : undefined}
             className="w-full h-full"
+            aria-label={`QR Code for ${value}`}
           />
         )}
       </div>

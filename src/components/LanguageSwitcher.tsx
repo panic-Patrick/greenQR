@@ -31,37 +31,35 @@ const LanguageSwitcher: React.FC = () => {
       }}
     >
       {/* DE Text */}
-      <span className={`absolute left-3 text-xs font-medium transition-all duration-700 ease-in-out ${
-        i18n.language === 'de' ? 'opacity-100 text-gray-900 dark:text-white' : 'opacity-40 text-gray-500 dark:text-gray-400'
-      }`}>
+      <span 
+        className={`absolute left-3 text-xs font-medium transition-all duration-700 ease-in-out ${
+          i18n.language === 'de' ? 'opacity-100 text-gray-900 dark:text-white' : 'opacity-40 text-gray-500 dark:text-gray-400'
+        }`}
+        aria-hidden="true"
+      >
         DE
       </span>
       
       {/* EN Text */}
-      <span className={`absolute right-3 text-xs font-medium transition-all duration-700 ease-in-out ${
-        i18n.language === 'en' ? 'opacity-100 text-gray-900 dark:text-white' : 'opacity-40 text-gray-500 dark:text-gray-400'
-      }`}>
+      <span 
+        className={`absolute right-3 text-xs font-medium transition-all duration-700 ease-in-out ${
+          i18n.language === 'en' ? 'opacity-100 text-gray-900 dark:text-white' : 'opacity-40 text-gray-500 dark:text-gray-400'
+        }`}
+        aria-hidden="true"
+      >
         EN
       </span>
       
       {/* Switch Knob */}
-      <div
-        style={{
-          transform: i18n.language === 'en' ? 'translateX(48px)' : 'translateX(4px)',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          transition: 'transform 100ms ease-in-out, background-color 700ms ease-in-out, border-color 700ms ease-in-out'
-        }}
-        className={`absolute h-7 w-7 rounded-full flex items-center justify-center ${
-          i18n.language === 'en' 
-            ? 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600' 
-            : 'bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600'
+      <div 
+        className={`absolute h-6 w-6 bg-white rounded-full transition-all duration-700 ease-in-out transform ${
+          i18n.language === 'en' ? 'translate-x-12' : 'translate-x-2'
         }`}
+        style={{
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}
         aria-hidden="true"
-      >
-        <span className="text-xs font-bold text-gray-700 dark:text-gray-300 transition-all duration-100 ease-in-out transform">
-          {i18n.language === 'en' ? 'EN' : 'DE'}
-        </span>
-      </div>
+      />
     </div>
   );
 };

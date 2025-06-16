@@ -121,10 +121,11 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
             value={value}
             size={size}
             fgColor={color}
+            level="H"
             imageSettings={logoImageSrc ? {
               src: logoImageSrc,
-              height: size * 0.2,
-              width: size * 0.2,
+              height: size * 0.3,
+              width: size * 0.3,
               excavate: true
             } : undefined}
             className="w-full h-full"

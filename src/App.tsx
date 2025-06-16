@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { QRGenerator } from './components/QRGenerator';
 import { Loader2 } from 'lucide-react';
+import { Footer } from './components/Footer';
 import './i18n/config';
 
 const LoadingSpinner = () => (
@@ -15,7 +16,12 @@ const LoadingSpinner = () => (
 function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <QRGenerator />
+      <div className="min-h-screen flex flex-col">
+        <main className="flex-grow">
+          <QRGenerator />
+        </main>
+        <Footer />
+      </div>
     </Suspense>
   );
 }

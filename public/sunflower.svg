@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blütenblätter -->
+  <path d="M16 2C16 2 18 6 22 6C26 6 28 2 28 2C28 2 26 6 26 10C26 14 28 18 28 18C28 18 26 14 22 14C18 14 16 18 16 18C16 18 14 14 10 14C6 14 4 18 4 18C4 18 6 14 6 10C6 6 4 2 4 2C4 2 6 6 10 6C14 6 16 2 16 2Z" fill="#FFD700"/>
+  <!-- Zentrum -->
+  <circle cx="16" cy="16" r="6" fill="#8B4513"/>
+  <!-- Details im Zentrum -->
+  <circle cx="16" cy="16" r="4" fill="#A0522D"/>
+</svg> 

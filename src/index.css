@@ -88,3 +88,11 @@
 .success-animation {
   animation: success-pulse 0.3s ease-in-out;
 }
+
+.rounded-modules canvas {
+  border-radius: 8px;
+}
+
+.rounded-modules canvas path {
+  border-radius: 50%;
+}

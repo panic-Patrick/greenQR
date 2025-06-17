@@ -1,4 +1,8 @@
 export type QRType = 'url' | 'wifi' | 'vcard' | 'email';
+export type QRPointStyle = 'square' | 'circle';
+export type QRBodyShape = 'square' | 'dots' | 'rounded' | 'extra-rounded' | 'classy' | 'classy-rounded';
+export type QREyeFrameShape = 'square' | 'circle' | 'extra-rounded' | 'classy' | 'classy-rounded';
+export type QREyeBallShape = 'square' | 'circle' | 'extra-rounded' | 'classy' | 'classy-rounded' | 'dot';
 
 export interface WiFiConfig {
   ssid: string;
@@ -12,8 +16,12 @@ export interface VCardConfig {
   lastName: string;
   organization: string;
   title: string;
-  phone: string;
-  email: string;
+  titleType: 'mr' | 'mrs' | 'ms' | 'dr' | 'prof' | 'none';
+  department: string;
+  alternativeName: string;
+  notes: string;
+  phones: string[];
+  emails: string[];
   website: string;
   address: string;
   city: string;
@@ -36,4 +44,5 @@ export interface QRConfig {
   email: EmailConfig;
   color: string;
   logoFile: File | null;
+  pointStyle: QRPointStyle;
 }

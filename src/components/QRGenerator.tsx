@@ -13,6 +13,7 @@ import {
 import { generateWiFiString, generateVCardString, generateEmailString } from '../utils/qrGenerators';
 import { QRType, QRConfig, WiFiConfig, VCardConfig, EmailConfig } from '../types/qr';
 import { QRTypeSelector } from './QRTypeSelector';
+import { QRStyleSelector, QRBodyShape, QREyeFrameShape, QREyeBallShape } from './QRStyleSelector';
 import { URLForm } from './forms/URLForm';
 import { WiFiForm } from './forms/WiFiForm';
 import { VCardForm } from './forms/VCardForm';
@@ -34,8 +35,12 @@ const initialVCardConfig: VCardConfig = {
   lastName: '',
   organization: '',
   title: '',
-  phone: '',
-  email: '',
+  titleType: 'none',
+  department: '',
+  alternativeName: '',
+  notes: '',
+  phones: [''],
+  emails: [''],
   website: '',
   address: '',
   city: '',
@@ -50,6 +55,8 @@ const initialEmailConfig: EmailConfig = {
   body: ''
 };
 
+const DEFAULT_LOGO_URL = '/sunflower.svg';
+
 export const QRGenerator: React.FC = () => {
   const { t, i18n } = useTranslation();
   
@@ -60,7 +67,14 @@ export const QRGenerator: React.FC = () => {
   const [vcardConfig, setVcardConfig] = useState<VCardConfig>(initialVCardConfig);
   const [emailConfig, setEmailConfig] = useState<EmailConfig>(initialEmailConfig);
   const [color, setColor] = useState('#000000');
-  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [iconColor, setIconColor] = useState('#000000');
+  const [iconSvg, setIconSvg] = useState<string | null>(null);
+  const [iconLabel, setIconLabel] = useState<string | null>(null);
+  const [bodyShape, setBodyShape] = useState<QRBodyShape>('square');
+  const [eyeFrameShape, setEyeFrameShape] = useState<QREyeFrameShape>('square');
+  const [eyeBallShape, setEyeBallShape] = useState<QREyeBallShape>('square');
+  const [showLogo, setShowLogo] = useState(true);
+  const [coloredIconSvg, setColoredIconSvg] = useState<string | null>(null);
   
   // Validation state
   const [errors, setErrors] = useState<{
@@ -126,13 +140,13 @@ export const QRGenerator: React.FC = () => {
     }
     
     // Validate logo
-    if (logoFile && !isValidImageFile(logoFile)) {
+    if (iconSvg && !isValidImageFile(new File([iconSvg], 'icon.svg', { type: 'image/svg+xml' }))) {
       newErrors.logo = t('validation.invalidFileType');
     }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }, [qrType, url, wifiConfig, vcardConfig, emailConfig, color, logoFile, t]);
+  }, [qrType, url, wifiConfig, vcardConfig, emailConfig, color, iconSvg, t]);
 
   // Handlers
   const handleTypeChange = (type: QRType) => {
@@ -160,26 +174,47 @@ export const QRGenerator: React.FC = () => {
     setColor(newColor);
   };
 
-  const handleLogoSelect = (file: File | null) => {
-    if (file) {
-      // Create a new File object to ensure we have a fresh instance
-      const newFile = new File([file], file.name, {
-        type: file.type,
-        lastModified: file.lastModified,
-      });
-      
-      if (isValidImageFile(newFile)) {
-        setLogoFile(newFile);
-        setErrors(prev => ({ ...prev, logo: undefined }));
-      } else {
-        setLogoFile(null);
-        setErrors(prev => ({ ...prev, logo: t('form.logoError') }));
-      }
+  // Hilfsfunktion: SVG-Icon-Logo erkennen und neu generieren
+  const regenerateSvgIconLogo = (newColor: string) => {
+    if (!iconSvg) return;
+    if (iconSvg.startsWith('<svg')) {
+      // Versuche, das SVG zu parsen und die fill-Farbe zu ersetzen
+      const updatedSvg = iconSvg.replace(/fill='[^']*'/g, `fill='${newColor}'`);
+      setIconSvg(updatedSvg);
+    }
+  };
+
+  // Icon-Farbe ändern: Wenn SVG-Logo, dann neu generieren
+  const handleIconColorChange = (newColor: string) => {
+    setIconColor(newColor);
+    regenerateSvgIconLogo(newColor);
+  };
+
+  const handleIconSelect = (icon: { svgText: string; label: string } | null) => {
+    if (icon) {
+      setIconSvg(icon.svgText);
+      setIconLabel(icon.label);
+      setErrors(prev => ({ ...prev, logo: undefined }));
     } else {
-      setLogoFile(null);
+      setIconSvg(null);
+      setIconLabel(null);
       setErrors(prev => ({ ...prev, logo: undefined }));
     }
   };
+
+  // Update coloredIconSvg whenever iconSvg or iconColor changes
+  React.useEffect(() => {
+    if (iconSvg) {
+      let colored = iconSvg.replace(/fill="[^"]*"/g, `fill="${iconColor}"`);
+      if (!colored.includes('fill=')) {
+        colored = colored.replace(/<svg/, `<svg fill="${iconColor}"`);
+      }
+      colored = colored.replace(/<path/g, `<path fill="${iconColor}"`);
+      setColoredIconSvg(colored);
+    } else {
+      setColoredIconSvg(null);
+    }
+  }, [iconSvg, iconColor]);
 
   React.useEffect(() => {
     validateForm();
@@ -225,107 +260,92 @@ export const QRGenerator: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <div /> {/* Spacer */}
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-              {t('title')}
-            </h1>
-            <div className="flex space-x-2">
-              <LanguageSwitcher />
-            </div>
-          </div>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            {t('subtitle')}
-          </p>
-        </div>
-
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Form Section */}
-          <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              {/* QR Type Selector */}
+    <div className="container mx-auto px-4 py-8" role="region" aria-label="QR Code Generator">
+      <div className="max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-6" role="form" aria-label="QR Code Einstellungen">
+            <div className="flex justify-between items-center">
               <QRTypeSelector
                 selectedType={qrType}
                 onTypeChange={handleTypeChange}
+                aria-label="QR Code Typ auswählen"
               />
-
-              {/* Dynamic Form */}
-              {renderForm()}
-
-              {/* Logo Upload */}
-              <FileUpload
-                onFileSelect={handleLogoSelect}
-                selectedFile={logoFile}
-                label={t('form.logoLabel')}
-                error={errors.logo}
+              <LanguageSwitcher
+                aria-label="Sprache ändern"
               />
+            </div>
 
-              {/* Color Picker */}
-              <ColorPicker
-                color={color}
-                onChange={handleColorChange}
-                label={t('form.colorLabel')}
-                error={errors.color}
-              />
-            </form>
+            {renderForm()}
+
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="qr-color" className="block text-sm font-medium text-gray-300 mb-2">
+                  {t('colorPicker.qrColor')}
+                </label>
+                <ColorPicker
+                  color={color}
+                  onChange={handleColorChange}
+                  label={t('colorPicker.qrColor')}
+                  error={errors.color}
+                  aria-label="QR Code Farbe auswählen"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="icon-color" className="block text-sm font-medium text-gray-300 mb-2">
+                  {t('colorPicker.iconColor')}
+                </label>
+                <ColorPicker
+                  color={iconColor}
+                  onChange={handleIconColorChange}
+                  label={t('colorPicker.iconColor')}
+                  aria-label="Icon Farbe auswählen"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="logo-upload" className="block text-sm font-medium text-gray-300 mb-2">
+                  {t('fileUpload.label')}
+                </label>
+                <FileUpload
+                  onIconSelect={handleIconSelect}
+                  selectedFile={null}
+                  label={t('fileUpload.label')}
+                  error={errors.logo}
+                  iconColor={iconColor}
+                  aria-label="Logo hochladen"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="qr-style" className="block text-sm font-medium text-gray-300 mb-2">
+                  {t('styleSelector.label')}
+                </label>
+                <QRStyleSelector
+                  bodyShape={bodyShape}
+                  eyeFrameShape={eyeFrameShape}
+                  eyeBallShape={eyeBallShape}
+                  onBodyShapeChange={setBodyShape}
+                  onEyeFrameShapeChange={setEyeFrameShape}
+                  onEyeBallShapeChange={setEyeBallShape}
+                  aria-label="QR Code Stil auswählen"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Preview Section */}
-          <div className="space-y-6">
-            <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm">
-              <QRCodePreview
-                value={debouncedQrValue}
-                color={debouncedColor}
-                logoFile={logoFile}
-                size={256}
-                isGenerating={isGenerating}
-              />
-            </div>
-
-            {/* Quick Info */}
-            <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
-              <h4 className="font-medium text-emerald-900 dark:text-emerald-100 mb-2">
-                {qrType === 'wifi' && t('tips.wifi.title')}
-                {qrType === 'vcard' && t('tips.vcard.title')}
-                {qrType === 'email' && t('tips.email.title')}
-                {qrType === 'url' && t('tips.url.title')}
-              </h4>
-              <ul className="text-sm text-emerald-800 dark:text-emerald-200 space-y-1">
-                {qrType === 'wifi' && (
-                  <>
-                    {(t('tips.wifi.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
-                      <li key={index}>{tip}</li>
-                    ))}
-                  </>
-                )}
-                {qrType === 'vcard' && (
-                  <>
-                    {(t('tips.vcard.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
-                      <li key={index}>{tip}</li>
-                    ))}
-                  </>
-                )}
-                {qrType === 'email' && (
-                  <>
-                    {(t('tips.email.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
-                      <li key={index}>{tip}</li>
-                    ))}
-                  </>
-                )}
-                {qrType === 'url' && (
-                  <>
-                    {(t('tips.url.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
-                      <li key={index}>{tip}</li>
-                    ))}
-                  </>
-                )}
-              </ul>
-            </div>
+          <div className="flex flex-col items-center justify-center" role="region" aria-label="QR Code Vorschau">
+            <QRCodePreview
+              value={debouncedQrValue}
+              color={debouncedColor}
+              iconSvg={coloredIconSvg}
+              bodyShape={bodyShape}
+              eyeFrameShape={eyeFrameShape}
+              eyeBallShape={eyeBallShape}
+              isGenerating={isGenerating}
+              size={256}
+              aria-label="QR Code Vorschau"
+            />
           </div>
         </div>
       </div>

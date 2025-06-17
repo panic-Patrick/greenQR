@@ -17,8 +17,8 @@ export const isValidHexColor = (color: string): boolean => {
 };
 
 export const isValidImageFile = (file: File): boolean => {
-  const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-  const maxSize = 2 * 1024 * 1024; // 2MB
+  const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
+  const maxSize = 10 * 1024 * 1024; // 2MB
   
   return validTypes.includes(file.type) && file.size <= maxSize;
 };
@@ -50,15 +50,16 @@ export const validateWiFiConfig = (config: any): Record<string, string> => {
 export const validateVCardConfig = (config: any): Record<string, string> => {
   const errors: Record<string, string> = {};
   
-  if (!config.firstName?.trim() && !config.lastName?.trim()) {
-    errors.firstName = 'At least first name or last name is required';
-    errors.lastName = 'At least first name or last name is required';
+  // Validate emails if any are provided
+  if (config.emails?.length > 0) {
+    config.emails.forEach((email: string, index: number) => {
+      if (email && !isValidEmail(email)) {
+        errors[`emails.${index}`] = 'Please enter a valid email address';
+      }
+    });
   }
   
-  if (config.email && !isValidEmail(config.email)) {
-    errors.email = 'Please enter a valid email address';
-  }
-  
+  // Validate website if provided
   if (config.website && !isValidUrl(config.website)) {
     errors.website = 'Please enter a valid website URL';
   }

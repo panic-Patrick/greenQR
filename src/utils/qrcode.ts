@@ -1,12 +1,33 @@
-export const downloadQRCode = (canvas: HTMLCanvasElement, filename: string = 'qrcode.png'): void => {
+export const downloadQRCode = (canvas: HTMLCanvasElement, filename: string = 'qrcode.png', format: 'png' | 'svg' = 'png'): void => {
   try {
-    const url = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.download = filename;
-    link.href = url;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (format === 'svg') {
+      // Get the SVG element
+      const svgElement = canvas.parentElement?.querySelector('svg');
+      if (!svgElement) {
+        throw new Error('SVG element not found');
+      }
+
+      // Create a new SVG element with the same content
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      
+      const link = document.createElement('a');
+      link.download = filename.replace('.png', '.svg');
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } else {
+      const url = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   } catch (error) {
     console.error('Error downloading QR code:', error);
     throw new Error('Failed to download QR code');

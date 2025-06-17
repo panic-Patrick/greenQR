@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { VCardConfig } from '../../types/qr';
+import { Plus, X } from 'lucide-react';
 
 interface VCardFormProps {
   config: VCardConfig;
@@ -11,8 +12,40 @@ interface VCardFormProps {
 export const VCardForm: React.FC<VCardFormProps> = ({ config, onChange, errors }) => {
   const { t } = useTranslation();
 
-  const handleChange = (field: keyof VCardConfig, value: string) => {
+  const handleChange = (field: keyof VCardConfig, value: any) => {
     onChange({ ...config, [field]: value });
+  };
+
+  const handleAddPhone = () => {
+    onChange({ ...config, phones: [...config.phones, ''] });
+  };
+
+  const handleRemovePhone = (index: number) => {
+    const newPhones = [...config.phones];
+    newPhones.splice(index, 1);
+    onChange({ ...config, phones: newPhones });
+  };
+
+  const handlePhoneChange = (index: number, value: string) => {
+    const newPhones = [...config.phones];
+    newPhones[index] = value;
+    onChange({ ...config, phones: newPhones });
+  };
+
+  const handleAddEmail = () => {
+    onChange({ ...config, emails: [...config.emails, ''] });
+  };
+
+  const handleRemoveEmail = (index: number) => {
+    const newEmails = [...config.emails];
+    newEmails.splice(index, 1);
+    onChange({ ...config, emails: newEmails });
+  };
+
+  const handleEmailChange = (index: number, value: string) => {
+    const newEmails = [...config.emails];
+    newEmails[index] = value;
+    onChange({ ...config, emails: newEmails });
   };
 
   const inputClass = (field: keyof VCardConfig) => `
@@ -34,7 +67,7 @@ export const VCardForm: React.FC<VCardFormProps> = ({ config, onChange, errors }
             htmlFor="vcard-firstName"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
-            {t('form.vcard.firstName')} *
+            {t('form.vcard.firstName')}
           </label>
           <input
             type="text"
@@ -55,7 +88,7 @@ export const VCardForm: React.FC<VCardFormProps> = ({ config, onChange, errors }
             htmlFor="vcard-lastName"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
-            {t('form.vcard.lastName')} *
+            {t('form.vcard.lastName')}
           </label>
           <input
             type="text"
@@ -72,7 +105,30 @@ export const VCardForm: React.FC<VCardFormProps> = ({ config, onChange, errors }
         </div>
       </div>
 
-      {/* Organization & Title */}
+      {/* Title Type */}
+      <div>
+        <label 
+          htmlFor="vcard-titleType"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          {t('form.vcard.titleType')}
+        </label>
+        <select
+          id="vcard-titleType"
+          value={config.titleType}
+          onChange={(e) => handleChange('titleType', e.target.value)}
+          className={inputClass('titleType')}
+        >
+          <option value="none">{t('form.vcard.titleTypeNone')}</option>
+          <option value="mr">{t('form.vcard.titleTypeMr')}</option>
+          <option value="mrs">{t('form.vcard.titleTypeMrs')}</option>
+          <option value="ms">{t('form.vcard.titleTypeMs')}</option>
+          <option value="dr">{t('form.vcard.titleTypeDr')}</option>
+          <option value="prof">{t('form.vcard.titleTypeProf')}</option>
+        </select>
+      </div>
+
+      {/* Organization & Department */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label 
@@ -93,61 +149,144 @@ export const VCardForm: React.FC<VCardFormProps> = ({ config, onChange, errors }
 
         <div>
           <label 
-            htmlFor="vcard-title"
+            htmlFor="vcard-department"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
-            {t('form.vcard.title')}
+            {t('form.vcard.department')}
           </label>
           <input
             type="text"
-            id="vcard-title"
-            value={config.title}
-            onChange={(e) => handleChange('title', e.target.value)}
-            placeholder={t('form.vcard.titlePlaceholder')}
-            className={inputClass('title')}
+            id="vcard-department"
+            value={config.department}
+            onChange={(e) => handleChange('department', e.target.value)}
+            placeholder={t('form.vcard.departmentPlaceholder')}
+            className={inputClass('department')}
           />
         </div>
       </div>
 
-      {/* Contact Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label 
-            htmlFor="vcard-phone"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
+      {/* Job Title */}
+      <div>
+        <label 
+          htmlFor="vcard-title"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          {t('form.vcard.title')}
+        </label>
+        <input
+          type="text"
+          id="vcard-title"
+          value={config.title}
+          onChange={(e) => handleChange('title', e.target.value)}
+          placeholder={t('form.vcard.titlePlaceholder')}
+          className={inputClass('title')}
+        />
+      </div>
+
+      {/* Alternative Name */}
+      <div>
+        <label 
+          htmlFor="vcard-alternativeName"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          {t('form.vcard.alternativeName')}
+        </label>
+        <input
+          type="text"
+          id="vcard-alternativeName"
+          value={config.alternativeName}
+          onChange={(e) => handleChange('alternativeName', e.target.value)}
+          placeholder={t('form.vcard.alternativeNamePlaceholder')}
+          className={inputClass('alternativeName')}
+        />
+      </div>
+
+      {/* Notes */}
+      <div>
+        <label 
+          htmlFor="vcard-notes"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          {t('form.vcard.notes')}
+        </label>
+        <textarea
+          id="vcard-notes"
+          value={config.notes}
+          onChange={(e) => handleChange('notes', e.target.value)}
+          placeholder={t('form.vcard.notesPlaceholder')}
+          rows={3}
+          className={inputClass('notes')}
+        />
+      </div>
+
+      {/* Phone Numbers */}
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             {t('form.vcard.phone')}
           </label>
-          <input
-            type="tel"
-            id="vcard-phone"
-            value={config.phone}
-            onChange={(e) => handleChange('phone', e.target.value)}
-            placeholder={t('form.vcard.phonePlaceholder')}
-            className={inputClass('phone')}
-          />
-        </div>
-
-        <div>
-          <label 
-            htmlFor="vcard-email"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          <button
+            type="button"
+            onClick={handleAddPhone}
+            className="inline-flex items-center px-3 py-1 text-sm font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
           >
+            <Plus className="w-4 h-4 mr-1" />
+            {t('form.vcard.addPhone')}
+          </button>
+        </div>
+        {config.phones.map((phone, index) => (
+          <div key={index} className="flex gap-2 mb-2">
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => handlePhoneChange(index, e.target.value)}
+              placeholder={t('form.vcard.phonePlaceholder')}
+              className={inputClass('phones')}
+            />
+            <button
+              type="button"
+              onClick={() => handleRemovePhone(index)}
+              className="p-2 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Email Addresses */}
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             {t('form.vcard.email')}
           </label>
-          <input
-            type="email"
-            id="vcard-email"
-            value={config.email}
-            onChange={(e) => handleChange('email', e.target.value)}
-            placeholder={t('form.vcard.emailPlaceholder')}
-            className={inputClass('email')}
-            aria-invalid={!!errors.email}
-          />
-          {errors.email && (
-            <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
-          )}
+          <button
+            type="button"
+            onClick={handleAddEmail}
+            className="inline-flex items-center px-3 py-1 text-sm font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300"
+          >
+            <Plus className="w-4 h-4 mr-1" />
+            {t('form.vcard.addEmail')}
+          </button>
         </div>
+        {config.emails.map((email, index) => (
+          <div key={index} className="flex gap-2 mb-2">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => handleEmailChange(index, e.target.value)}
+              placeholder={t('form.vcard.emailPlaceholder')}
+              className={inputClass('emails')}
+            />
+            <button
+              type="button"
+              onClick={() => handleRemoveEmail(index)}
+              className="p-2 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        ))}
       </div>
 
       {/* Website */}

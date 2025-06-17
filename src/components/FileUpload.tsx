@@ -2,35 +2,127 @@ import React, { useRef, useState } from 'react';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { isValidImageFile, formatFileSize } from '../utils/validation';
+import { faInstagram, faFacebook, faXTwitter, faLinkedin, faWhatsapp, faTiktok, faYoutube, faTelegram, faMastodon, faPinterest, faReddit, faSnapchat, faDiscord, faTwitch, faGithub, faDribbble, faSlack, faSpotify, faMedium, faVimeo, faSteam, faStackOverflow, faSoundcloud, faStrava, faMeetup, faTumblr, faWeibo, faXing, faVk } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faWifi, faUser, faGlobe, faPhone, faStar, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { ColorPicker } from './ColorPicker';
+import heartIcon from '../assets/icons/heart.svg';
+import starIcon from '../assets/icons/star.svg';
+import phoneIcon from '../assets/icons/phone.svg';
+import globeIcon from '../assets/icons/globe.svg';
+import userIcon from '../assets/icons/user.svg';
+import wifiIcon from '../assets/icons/wifi.svg';
+import envelopeIcon from '../assets/icons/envelope.svg';
+import vkIcon from '../assets/icons/vk.svg';
+import xingIcon from '../assets/icons/xing.svg';
+import weiboIcon from '../assets/icons/weibo.svg';
+import tumblrIcon from '../assets/icons/tumblr.svg';
+import meetupIcon from '../assets/icons/meetup.svg';
+import stravaIcon from '../assets/icons/strava.svg';
+import soundcloudIcon from '../assets/icons/soundcloud.svg';
+import stackOverflowIcon from '../assets/icons/stack-overflow.svg';
+import steamIcon from '../assets/icons/steam.svg';
+import vimeoIcon from '../assets/icons/vimeo.svg';
+import mediumIcon from '../assets/icons/medium.svg';
+import spotifyIcon from '../assets/icons/spotify.svg';
+import slackIcon from '../assets/icons/slack.svg';
+import dribbbleIcon from '../assets/icons/dribbble.svg';
+import bitbucketIcon from '../assets/icons/bitbucket.svg';
+import gitAltIcon from '../assets/icons/git-alt.svg';
+import gitkrakenIcon from '../assets/icons/gitkraken.svg';
+import gitlabIcon from '../assets/icons/gitlab.svg';
+import githubIcon from '../assets/icons/github.svg';
+import twitchIcon from '../assets/icons/twitch.svg';
+import discordIcon from '../assets/icons/discord.svg';
+import snapchatIcon from '../assets/icons/snapchat.svg';
+import redditIcon from '../assets/icons/reddit.svg';
+import pinterestIcon from '../assets/icons/pinterest.svg';
+import mastodonIcon from '../assets/icons/mastodon.svg';
+import telegramIcon from '../assets/icons/telegram.svg';
+import youtubeIcon from '../assets/icons/youtube.svg';
+import tiktokIcon from '../assets/icons/tiktok.svg';
+import whatsappIcon from '../assets/icons/whatsapp.svg';
+import linkedinIcon from '../assets/icons/linkedin.svg';
+import xTwitterIcon from '../assets/icons/x-twitter.svg';
+import facebookIcon from '../assets/icons/facebook.svg';
+import instagramIcon from '../assets/icons/instagram.svg';
 
 interface FileUploadProps {
-  onFileSelect: (file: File | null) => void;
+  onIconSelect: (icon: { svgText: string; label: string } | null) => void;
   selectedFile: File | null;
   label: string;
   error?: string;
+  iconColor?: string;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
-  onFileSelect,
+  onIconSelect,
   selectedFile,
   label,
-  error
+  error,
+  iconColor = '#000000',
 }) => {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [iconModalOpen, setIconModalOpen] = useState(false);
+  const svgStringToFile = (svgString: string, fileName = 'icon.svg') => {
+    const blob = new Blob([svgString], { type: 'image/svg+xml' });
+    return new File([blob], fileName, { type: 'image/svg+xml' });
+  };
+  const [selectedIcon, setSelectedIcon] = useState<{ svgText: string; label: string } | null>(null);
+
+  const iconOptions = [
+    { icon: instagramIcon, label: 'Instagram' },
+    { icon: facebookIcon, label: 'Facebook' },
+    { icon: xTwitterIcon, label: 'X' },
+    { icon: linkedinIcon, label: 'LinkedIn' },
+    { icon: whatsappIcon, label: 'WhatsApp' },
+    { icon: tiktokIcon, label: 'TikTok' },
+    { icon: youtubeIcon, label: 'YouTube' },
+    { icon: telegramIcon, label: 'Telegram' },
+    { icon: mastodonIcon, label: 'Mastodon' },
+    { icon: pinterestIcon, label: 'Pinterest' },
+    { icon: redditIcon, label: 'Reddit' },
+    { icon: snapchatIcon, label: 'Snapchat' },
+    { icon: discordIcon, label: 'Discord' },
+    { icon: twitchIcon, label: 'Twitch' },
+    { icon: githubIcon, label: 'GitHub' },
+    { icon: dribbbleIcon, label: 'Dribbble' },
+    { icon: slackIcon, label: 'Slack' },
+    { icon: spotifyIcon, label: 'Spotify' },
+    { icon: mediumIcon, label: 'Medium' },
+    { icon: vimeoIcon, label: 'Vimeo' },
+    { icon: steamIcon, label: 'Steam' },
+    { icon: stackOverflowIcon, label: 'Stack Overflow' },
+    { icon: soundcloudIcon, label: 'SoundCloud' },
+    { icon: stravaIcon, label: 'Strava' },
+    { icon: meetupIcon, label: 'Meetup' },
+    { icon: tumblrIcon, label: 'Tumblr' },
+    { icon: weiboIcon, label: 'Weibo' },
+    { icon: xingIcon, label: 'Xing' },
+    { icon: vkIcon, label: 'VK' },
+    { icon: envelopeIcon, label: 'Mail' },
+    { icon: wifiIcon, label: 'WLAN' },
+    { icon: userIcon, label: 'User' },
+    { icon: globeIcon, label: 'Globe' },
+    { icon: phoneIcon, label: 'Phone' },
+    { icon: starIcon, label: 'Star' },
+    { icon: heartIcon, label: 'Heart' },
+  ];
 
   const handleFile = (file: File | undefined) => {
-    console.log('handleFile aufgerufen mit:', file);
     if (file) {
-      if (isValidImageFile(file)) {
-        onFileSelect(file);
+      // SVGs erlauben
+      const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
+      const maxSize = 2 * 1024 * 1024; // 2MB
+      if (validTypes.includes(file.type) && file.size <= maxSize) {
+        onIconSelect(file);
       } else {
-        onFileSelect(null);
-        alert('Die Datei ist kein gültiges Bild oder zu groß!');
+        onIconSelect(null);
+        alert('Die Datei ist kein gültiges Bild (PNG, JPG, JPEG, SVG) oder zu groß!');
       }
     } else {
-      onFileSelect(null);
+      onIconSelect(null);
     }
   };
 
@@ -65,9 +157,24 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   const clearFile = () => {
-    onFileSelect(null);
+    onIconSelect(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
+    }
+  };
+
+  const handleIconSelect = async (icon: any) => {
+    // SVG-Datei als Text laden
+    const response = await fetch(icon.icon);
+    const svgText = await response.text();
+    onIconSelect({ svgText, label: icon.label });
+    setIconModalOpen(false);
+    setSelectedIcon({ svgText, label: icon.label });
+  };
+
+  const handleIconColorChange = (color: string) => {
+    if (selectedIcon) {
+      onIconSelect({ svgText: selectedIcon.svgText, label: selectedIcon.label });
     }
   };
 
@@ -79,6 +186,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       >
         {label}
       </label>
+      
+      <button
+        type="button"
+        className="mb-2 w-full px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100"
+        onClick={() => setIconModalOpen(true)}
+      >
+        {t('form.logoLabel')} (Icon wählen)
+      </button>
       
       <div
         className={`
@@ -108,7 +223,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/png,image/jpeg,image/jpg"
+          accept="image/png,image/jpeg,image/jpg,image/svg+xml"
           onChange={handleFileChange}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           aria-describedby={error ? 'file-error' : undefined}
@@ -195,6 +310,33 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               />
             </svg>
           </button>
+        </div>
+      )}
+      
+      {iconModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white dark:bg-gray-900 rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-300 dark:border-gray-700">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Icon auswählen</h2>
+              <button onClick={() => setIconModalOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" aria-label="Schließen"><X size={24} /></button>
+            </div>
+            <div className="grid grid-cols-5 gap-4 mb-4">
+              {iconOptions.map((opt, idx) => (
+                <button
+                  key={opt.label}
+                  className="flex flex-col items-center justify-center p-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 hover:bg-green-100 dark:hover:bg-green-900 focus:outline-none min-h-[60px]"
+                  onClick={() => handleIconSelect(opt)}
+                  aria-label={opt.label}
+                >
+                  <img src={opt.icon} alt={opt.label} className="w-8 h-8 mx-auto" />
+                  <span className="mt-1 text-xs text-gray-700 dark:text-gray-300 text-center w-full block">{opt.label}</span>
+                </button>
+              ))}
+            </div>
+            <div className="flex justify-end">
+              <button onClick={() => setIconModalOpen(false)} className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600">Abbrechen</button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -9,14 +9,18 @@
   },
   "form": {
     "typeLabel": "QR Code Type",
+    "styleLabel": "QR Code Style",
+    "styleSquare": "Square",
+    "styleCircle": "Round",
     "urlLabel": "URL or Text",
     "urlPlaceholder": "Enter URL or text to generate QR code",
     "urlError": "Please enter a valid URL or text",
     "logoLabel": "Center Logo (Optional)",
     "logoPlaceholder": "Upload PNG, JPG, or JPEG (max 2MB)",
-    "logoError": "Please upload a valid image file (PNG, JPG, JPEG) under 2MB",
+    "logoError": "Only PNG, JPG, JPEG, and SVG files are allowed.",
     "colorLabel": "QR Code Color",
     "colorPlaceholder": "Enter hex color",
+    "selectColor": "Select color",
     "languageLabel": "Language",
     "darkModeLabel": "Dark Mode",
     "wifi": {
@@ -39,10 +43,25 @@
       "organizationPlaceholder": "Enter company/organization",
       "title": "Job Title",
       "titlePlaceholder": "Enter job title",
+      "titleType": "Title",
+      "titleTypeNone": "None",
+      "titleTypeMr": "Mr.",
+      "titleTypeMrs": "Mrs.",
+      "titleTypeMs": "Ms.",
+      "titleTypeDr": "Dr.",
+      "titleTypeProf": "Prof.",
+      "department": "Department",
+      "departmentPlaceholder": "Enter department",
+      "alternativeName": "Alternative Name",
+      "alternativeNamePlaceholder": "Nickname or alternative name",
+      "notes": "Notes",
+      "notesPlaceholder": "Additional notes or information",
       "phone": "Phone",
       "phonePlaceholder": "Enter phone number",
+      "addPhone": "Add phone number",
       "email": "Email",
       "emailPlaceholder": "Enter email address",
+      "addEmail": "Add email address",
       "website": "Website",
       "websitePlaceholder": "Enter website URL",
       "address": "Street Address",
@@ -68,7 +87,7 @@
   "preview": {
     "title": "Preview",
     "generating": "Generating QR code...",
-    "download": "Download PNG",
+    "download": "Download",
     "downloadSuccess": "QR code downloaded successfully!",
     "downloadError": "Failed to download QR code",
     "error": "Error generating QR code",
@@ -81,8 +100,8 @@
     "invalidUrl": "Please enter a valid URL",
     "invalidEmail": "Please enter a valid email address",
     "invalidHex": "Please enter a valid hex color",
-    "fileTooLarge": "File size must be under 2MB",
-    "invalidFileType": "Only PNG, JPG, and JPEG files are allowed"
+    "fileTooLarge": "File size must be under 10MB",
+    "invalidFileType": "Only PNG, JPG, JPEG, and SVG files are allowed"
   },
   "languages": {
     "en": "English",
@@ -93,7 +112,7 @@
     "dragAndDrop": " drag and drop",
     "or": "or",
     "removeImage": "Remove image",
-    "fileTypes": "PNG, JPG, JPEG (max 2MB)"
+    "fileTypes": "PNG, JPG, JPEG, SVG (max 10MB)"
   },
   "tips": {
     "wifi": {

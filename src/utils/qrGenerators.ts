@@ -17,8 +17,12 @@ export const generateVCardString = (config: VCardConfig): string => {
     lastName,
     organization,
     title,
-    phone,
-    email,
+    titleType,
+    department,
+    alternativeName,
+    notes,
+    phones,
+    emails,
     website,
     address,
     city,
@@ -27,8 +31,6 @@ export const generateVCardString = (config: VCardConfig): string => {
     country
   } = config;
   
-  if (!firstName.trim() && !lastName.trim()) return '';
-  
   const fullName = `${firstName} ${lastName}`.trim();
   const formattedAddress = [address, city, state, zip, country]
     .filter(Boolean)
@@ -36,13 +38,42 @@ export const generateVCardString = (config: VCardConfig): string => {
   
   let vcard = 'BEGIN:VCARD\n';
   vcard += 'VERSION:3.0\n';
+  
+  // Add title if selected
+  if (titleType !== 'none') {
+    const titleMap = {
+      'mr': 'Herr',
+      'mrs': 'Frau',
+      'ms': 'Frau',
+      'dr': 'Dr.',
+      'prof': 'Prof.'
+    };
+    vcard += `TITLE:${titleMap[titleType]}\n`;
+  }
+  
   vcard += `FN:${fullName}\n`;
   vcard += `N:${lastName};${firstName};;;\n`;
   
   if (organization) vcard += `ORG:${organization}\n`;
+  if (department) vcard += `ORG:${organization};${department}\n`;
   if (title) vcard += `TITLE:${title}\n`;
-  if (phone) vcard += `TEL:${phone}\n`;
-  if (email) vcard += `EMAIL:${email}\n`;
+  if (alternativeName) vcard += `NICKNAME:${alternativeName}\n`;
+  if (notes) vcard += `NOTE:${notes}\n`;
+  
+  // Add all phone numbers
+  phones.forEach(phone => {
+    if (phone.trim()) {
+      vcard += `TEL:${phone}\n`;
+    }
+  });
+  
+  // Add all email addresses
+  emails.forEach(email => {
+    if (email.trim()) {
+      vcard += `EMAIL:${email}\n`;
+    }
+  });
+  
   if (website) vcard += `URL:${website}\n`;
   if (formattedAddress) vcard += `ADR:;;${formattedAddress};;;;\n`;
   

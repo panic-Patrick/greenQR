@@ -14,9 +14,10 @@
     "urlError": "Bitte geben Sie eine gültige URL oder Text ein",
     "logoLabel": "Zentrales Logo (Optional)",
     "logoPlaceholder": "PNG, JPG oder JPEG hochladen (max. 2MB)",
-    "logoError": "Bitte laden Sie eine gültige Bilddatei (PNG, JPG, JPEG) unter 2MB hoch",
+    "logoError": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt.",
     "colorLabel": "QR-Code Farbe",
     "colorPlaceholder": "Hex-Farbe eingeben",
+    "selectColor": "Farbe auswählen",
     "languageLabel": "Sprache",
     "darkModeLabel": "Dunkler Modus",
     "wifi": {
@@ -39,10 +40,25 @@
       "organizationPlaceholder": "Firma/Organisation eingeben",
       "title": "Berufsbezeichnung",
       "titlePlaceholder": "Berufsbezeichnung eingeben",
+      "titleType": "Anrede",
+      "titleTypeNone": "Keine",
+      "titleTypeMr": "Herr",
+      "titleTypeMrs": "Frau",
+      "titleTypeMs": "Frau",
+      "titleTypeDr": "Dr.",
+      "titleTypeProf": "Prof.",
+      "department": "Abteilung",
+      "departmentPlaceholder": "Abteilung eingeben",
+      "alternativeName": "Alternativer Name",
+      "alternativeNamePlaceholder": "Spitzname oder alternativer Name",
+      "notes": "Notizen",
+      "notesPlaceholder": "Zusätzliche Notizen oder Informationen",
       "phone": "Telefon",
       "phonePlaceholder": "Telefonnummer eingeben",
+      "addPhone": "Telefonnummer hinzufügen",
       "email": "E-Mail",
       "emailPlaceholder": "E-Mail-Adresse eingeben",
+      "addEmail": "E-Mail-Adresse hinzufügen",
       "website": "Website",
       "websitePlaceholder": "Website-URL eingeben",
       "address": "Straße",
@@ -68,7 +84,7 @@
   "preview": {
     "title": "Vorschau",
     "generating": "QR-Code wird generiert...",
-    "download": "PNG herunterladen",
+    "download": " herunterladen",
     "downloadSuccess": "QR-Code erfolgreich heruntergeladen!",
     "downloadError": "Fehler beim Herunterladen des QR-Codes",
     "error": "Fehler beim Generieren des QR-Codes",
@@ -81,8 +97,8 @@
     "invalidUrl": "Bitte geben Sie eine gültige URL ein",
     "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "invalidHex": "Bitte geben Sie eine gültige Hex-Farbe ein",
-    "fileTooLarge": "Dateigröße muss unter 2MB sein",
-    "invalidFileType": "Nur PNG-, JPG- und JPEG-Dateien sind erlaubt"
+    "fileTooLarge": "Dateigröße muss unter 10MB sein",
+    "invalidFileType": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt"
   },
   "languages": {
     "en": "English",
@@ -93,7 +109,7 @@
     "dragAndDrop": " Datei hierher ziehen",
     "or": "oder",
     "removeImage": "Bild entfernen",
-    "fileTypes": "PNG, JPG, JPEG (max. 2MB)"
+    "fileTypes": "PNG, JPG, JPEG, SVG (max. 10MB)"
   },
   "tips": {
     "wifi": {

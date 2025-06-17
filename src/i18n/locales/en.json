@@ -101,7 +101,19 @@
     "invalidEmail": "Please enter a valid email address",
     "invalidHex": "Please enter a valid hex color",
     "fileTooLarge": "File size must be under 10MB",
-    "invalidFileType": "Only PNG, JPG, JPEG, and SVG files are allowed"
+    "invalidFileType": "Only PNG, JPG, JPEG, and SVG files are allowed",
+    "wifi": {
+      "ssidRequired": "SSID is required",
+      "passwordRequired": "Password is required for secured networks"
+    },
+    "email": {
+      "recipientRequired": "Recipient email is required",
+      "invalidRecipient": "Please enter a valid email address"
+    },
+    "vcard": {
+      "invalidEmail": "Please enter a valid email address",
+      "invalidWebsite": "Please enter a valid website URL"
+    }
   },
   "languages": {
     "en": "English",

@@ -18,7 +18,7 @@ export const isValidHexColor = (color: string): boolean => {
 
 export const isValidImageFile = (file: File): boolean => {
   const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
-  const maxSize = 10 * 1024 * 1024; // 2MB
+  const maxSize = 10 * 1024 * 1024; // 10MB
   
   return validTypes.includes(file.type) && file.size <= maxSize;
 };
@@ -37,11 +37,11 @@ export const validateWiFiConfig = (config: any): Record<string, string> => {
   const errors: Record<string, string> = {};
   
   if (!config.ssid?.trim()) {
-    errors.ssid = 'SSID is required';
+    errors.ssid = 'validation.wifi.ssidRequired';
   }
   
   if (config.security !== 'nopass' && !config.password?.trim()) {
-    errors.password = 'Password is required for secured networks';
+    errors.password = 'validation.wifi.passwordRequired';
   }
   
   return errors;
@@ -54,14 +54,14 @@ export const validateVCardConfig = (config: any): Record<string, string> => {
   if (config.emails?.length > 0) {
     config.emails.forEach((email: string, index: number) => {
       if (email && !isValidEmail(email)) {
-        errors[`emails.${index}`] = 'Please enter a valid email address';
+        errors[`emails.${index}`] = 'validation.vcard.invalidEmail';
       }
     });
   }
   
   // Validate website if provided
   if (config.website && !isValidUrl(config.website)) {
-    errors.website = 'Please enter a valid website URL';
+    errors.website = 'validation.vcard.invalidWebsite';
   }
   
   return errors;
@@ -71,9 +71,9 @@ export const validateEmailConfig = (config: any): Record<string, string> => {
   const errors: Record<string, string> = {};
   
   if (!config.to?.trim()) {
-    errors.to = 'Recipient email is required';
+    errors.to = 'validation.email.recipientRequired';
   } else if (!isValidEmail(config.to)) {
-    errors.to = 'Please enter a valid email address';
+    errors.to = 'validation.email.invalidRecipient';
   }
   
   return errors;

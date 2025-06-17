@@ -230,14 +230,18 @@ export const QRGenerator: React.FC = () => {
             error={errors.url}
           />
         );
-      case 'wifi':
+      case 'wifi': {
+        const translatedWifiErrors = Object.fromEntries(
+          Object.entries(errors.wifi || {}).map(([key, value]) => [key, t(value)])
+        );
         return (
           <WiFiForm
             config={wifiConfig}
             onChange={handleWifiChange}
-            errors={errors.wifi || {}}
+            errors={translatedWifiErrors}
           />
         );
+      }
       case 'vcard':
         return (
           <VCardForm
@@ -246,55 +250,76 @@ export const QRGenerator: React.FC = () => {
             errors={errors.vcard || {}}
           />
         );
-      case 'email':
+      case 'email': {
+        const translatedEmailErrors = Object.fromEntries(
+          Object.entries(errors.email || {}).map(([key, value]) => [key, t(value)])
+        );
         return (
           <EmailForm
             config={emailConfig}
             onChange={handleEmailChange}
-            errors={errors.email || {}}
+            errors={translatedEmailErrors}
           />
         );
+      }
       default:
         return null;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300" role="application" aria-label="GreenQR Anwendung">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-8">
+        <header className="text-center mb-8" role="banner" aria-label="Anwendungsheader">
           <div className="flex justify-between items-center mb-4">
             <div /> {/* Spacer */}
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
               {t('title')}
             </h1>
-            <div className="flex space-x-2">
+            <div className="flex space-x-2" role="navigation" aria-label="Sprachauswahl">
               <LanguageSwitcher aria-label="Sprache ändern" />
             </div>
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-400">
             {t('subtitle')}
           </p>
-        </div>
+        </header>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-8">
+        <main className="grid lg:grid-cols-2 gap-8" role="main" aria-label="Hauptinhalt">
           {/* Form Section */}
-          <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()} role="form" aria-label="QR Code Einstellungen">
+          <section 
+            className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm"
+            role="region"
+            aria-label="QR Code Einstellungen"
+          >
+            <h2 className="sr-only">QR Code Einstellungen</h2>
+            <form 
+              className="space-y-6" 
+              onSubmit={(e) => e.preventDefault()} 
+              role="form" 
+              aria-label="QR Code Einstellungen"
+            >
               {/* QR Type Selector */}
-              <QRTypeSelector
-                selectedType={qrType}
-                onTypeChange={handleTypeChange}
-                aria-label="QR Code Typ auswählen"
-              />
+              <div role="group" aria-labelledby="qr-type-heading">
+                <h3 id="qr-type-heading" className="sr-only">QR Code Typ</h3>
+                <QRTypeSelector
+                  selectedType={qrType}
+                  onTypeChange={handleTypeChange}
+                  aria-label="QR Code Typ auswählen"
+                />
+              </div>
 
               {/* Dynamic Form */}
-              {renderForm()}
+              <div role="group" aria-labelledby="qr-content-heading">
+                <h3 id="qr-content-heading" className="sr-only">QR Code Inhalt</h3>
+                {renderForm()}
+              </div>
 
               {/* Logo Upload */}
-              <div>
+              <div role="group" aria-labelledby="logo-settings-heading">
+                <h3 id="logo-settings-heading" className="sr-only">Logo Einstellungen</h3>
                 <FileUpload
                   onIconSelect={handleIconSelect}
                   selectedFile={null}
@@ -315,44 +340,59 @@ export const QRGenerator: React.FC = () => {
               </div>
 
               {/* QR Style Selector */}
-              <QRStyleSelector
-                bodyShape={bodyShape}
-                onBodyShapeChange={setBodyShape}
-                eyeFrameShape={eyeFrameShape}
-                onEyeFrameShapeChange={setEyeFrameShape}
-                eyeBallShape={eyeBallShape}
-                onEyeBallShapeChange={setEyeBallShape}
-                aria-label="QR Code Stil auswählen"
-              />
+              <div role="group" aria-labelledby="qr-style-heading">
+                <h3 id="qr-style-heading" className="sr-only">QR Code Stil</h3>
+                <QRStyleSelector
+                  bodyShape={bodyShape}
+                  onBodyShapeChange={setBodyShape}
+                  eyeFrameShape={eyeFrameShape}
+                  onEyeFrameShapeChange={setEyeFrameShape}
+                  eyeBallShape={eyeBallShape}
+                  onEyeBallShapeChange={setEyeBallShape}
+                  aria-label="QR Code Stil auswählen"
+                />
+              </div>
 
               {/* Color Picker nebeneinander */}
-              <div className="flex flex-row gap-4">
-                <div className="flex-1">
-                  <ColorPicker
-                    color={color}
-                    onChange={handleColorChange}
-                    label={t('form.colorLabel')}
-                    error={errors.color}
-                    aria-label="QR Code Farbe auswählen"
-                  />
-                </div>
-                <div className="flex-1">
-                  <ColorPicker
-                    color={iconColor}
-                    onChange={handleIconColorChange}
-                    label={t('form.logoLabel') + ' (Icon-Farbe)'}
-                    dropdownDirection="up"
-                    aria-label="Icon Farbe auswählen"
-                  />
+              <div role="group" aria-labelledby="color-picker-heading">
+                <h3 id="color-picker-heading" className="sr-only">Farbauswahl</h3>
+                <div className="flex flex-row gap-4">
+                  <div className="flex-1" role="group" aria-label="QR Code Farbe">
+                    <ColorPicker
+                      color={color}
+                      onChange={handleColorChange}
+                      label={t('form.colorLabel')}
+                      error={errors.color}
+                      aria-label="QR Code Farbe auswählen"
+                    />
+                  </div>
+                  <div className="flex-1" role="group" aria-label="Icon Farbe">
+                    <ColorPicker
+                      color={iconColor}
+                      onChange={handleIconColorChange}
+                      label={t('form.logoLabel') + ' (Icon-Farbe)'}
+                      dropdownDirection="up"
+                      aria-label="Icon Farbe auswählen"
+                    />
+                  </div>
                 </div>
               </div>
             </form>
-          </div>
+          </section>
 
           {/* Preview Section */}
-          <div className="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <section 
+            className="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto"
+            role="region"
+            aria-label="QR Code Vorschau"
+          >
+            <h2 className="sr-only">QR Code Vorschau</h2>
             <div className="space-y-6">
-              <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm">
+              <div 
+                className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm"
+                role="complementary"
+                aria-label="QR Code Vorschau"
+              >
                 <QRCodePreview
                   value={debouncedQrValue}
                   color={debouncedColor}
@@ -368,13 +408,17 @@ export const QRGenerator: React.FC = () => {
               </div>
 
               {/* Quick Info */}
-              <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
-                <h4 className="font-medium text-emerald-900 dark:text-emerald-100 mb-2">
+              <div 
+                className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4"
+                role="complementary"
+                aria-label="Hilfreiche Informationen"
+              >
+                <h3 className="font-medium text-emerald-900 dark:text-emerald-100 mb-2">
                   {qrType === 'wifi' && t('tips.wifi.title')}
                   {qrType === 'vcard' && t('tips.vcard.title')}
                   {qrType === 'email' && t('tips.email.title')}
                   {qrType === 'url' && t('tips.url.title')}
-                </h4>
+                </h3>
                 <ul className="text-sm text-emerald-800 dark:text-emerald-200 space-y-1">
                   {qrType === 'wifi' && (
                     <>
@@ -407,8 +451,8 @@ export const QRGenerator: React.FC = () => {
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
+          </section>
+        </main>
       </div>
     </div>
   );

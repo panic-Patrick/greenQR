@@ -45,7 +45,7 @@ export const EmailForm: React.FC<EmailFormProps> = ({ config, onChange, errors }
           aria-invalid={!!errors.to}
         />
         {errors.to && (
-          <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.to}</p>
+          <p className="mt-2 text-sm text-red-600 dark:text-red-400">{t(errors.to)}</p>
         )}
       </div>
 

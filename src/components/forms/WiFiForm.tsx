@@ -45,7 +45,7 @@ export const WiFiForm: React.FC<WiFiFormProps> = ({ config, onChange, errors }) 
           aria-invalid={!!errors.ssid}
         />
         {errors.ssid && (
-          <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.ssid}</p>
+          <p className="mt-2 text-sm text-red-600 dark:text-red-400">{t(errors.ssid)}</p>
         )}
       </div>
 
@@ -112,7 +112,7 @@ export const WiFiForm: React.FC<WiFiFormProps> = ({ config, onChange, errors }) 
             </button>
           </div>
           {errors.password && (
-            <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
+            <p className="mt-2 text-sm text-red-600 dark:text-red-400">{t(errors.password)}</p>
           )}
         </div>
       )}

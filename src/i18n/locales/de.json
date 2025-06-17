@@ -98,7 +98,19 @@
     "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "invalidHex": "Bitte geben Sie eine gültige Hex-Farbe ein",
     "fileTooLarge": "Dateigröße muss unter 10MB sein",
-    "invalidFileType": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt"
+    "invalidFileType": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt",
+    "wifi": {
+      "ssidRequired": "Netzwerkname (SSID) ist erforderlich",
+      "passwordRequired": "Passwort ist für gesicherte Netzwerke erforderlich"
+    },
+    "email": {
+      "recipientRequired": "Empfänger-E-Mail ist erforderlich",
+      "invalidRecipient": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+    },
+    "vcard": {
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "invalidWebsite": "Bitte geben Sie eine gültige Website-URL ein"
+    }
   },
   "languages": {
     "en": "English",

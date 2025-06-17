@@ -110,10 +110,15 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
       qrCodeRef.current.append(containerRef.current);
     };
     if (iconSvg) {
-      // SVG-String als Data-URL
-      const svgBase64 = btoa(unescape(encodeURIComponent(iconSvg)));
-      const dataUrl = `data:image/svg+xml;base64,${svgBase64}`;
-      createQRCode(dataUrl);
+      // Prüfen, ob es sich um eine Base64-Bild-URL handelt
+      if (iconSvg.startsWith('data:image/')) {
+        createQRCode(iconSvg);
+      } else {
+        // SVG-String als Data-URL
+        const svgBase64 = btoa(unescape(encodeURIComponent(iconSvg)));
+        const dataUrl = `data:image/svg+xml;base64,${svgBase64}`;
+        createQRCode(dataUrl);
+      }
     } else if (defaultLogoUrl) {
       createQRCode(window.location.origin + defaultLogoUrl);
     } else {

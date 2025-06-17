@@ -112,6 +112,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     { icon: phoneIcon, label: 'Phone' },
     { icon: starIcon, label: 'Star' },
     { icon: heartIcon, label: 'Heart' },
+    { icon: bitbucketIcon, label: 'Bitbucket' },
+    { icon: gitAltIcon, label: 'Git' },
+    { icon: gitkrakenIcon, label: 'Gitkraken' },
+    { icon: gitlabIcon, label: 'GitLab' },
   ];
 
   const handleFile = (file: File | undefined) => {
@@ -120,7 +124,23 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
       const maxSize = 2 * 1024 * 1024; // 2MB
       if (validTypes.includes(file.type) && file.size <= maxSize) {
-        onIconSelect(file);
+        if (file.type === 'image/svg+xml') {
+          // For SVG files, read the content and pass it as svgText
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const svgText = e.target?.result as string;
+            onIconSelect({ svgText, label: file.name });
+          };
+          reader.readAsText(file);
+        } else {
+          // For other image types, convert to base64 and pass as svgText
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const base64 = e.target?.result as string;
+            onIconSelect({ svgText: base64, label: file.name });
+          };
+          reader.readAsDataURL(file);
+        }
       } else {
         onIconSelect(null);
         alert('Die Datei ist kein gültiges Bild (PNG, JPG, JPEG, SVG) oder zu groß!');

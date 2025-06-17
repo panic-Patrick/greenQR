@@ -194,11 +194,12 @@ export const QRGenerator: React.FC = () => {
     if (icon) {
       setIconSvg(icon.svgText);
       setIconLabel(icon.label);
+      setShowLogo(true);
       setErrors(prev => ({ ...prev, logo: undefined }));
     } else {
       setIconSvg(null);
       setIconLabel(null);
-      setErrors(prev => ({ ...prev, logo: undefined }));
+      setShowLogo(false);
     }
   };
 

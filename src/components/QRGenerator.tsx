@@ -260,92 +260,153 @@ export const QRGenerator: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8" role="region" aria-label="QR Code Generator">
-      <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6" role="form" aria-label="QR Code Einstellungen">
-            <div className="flex justify-between items-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <div /> {/* Spacer */}
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+              {t('title')}
+            </h1>
+            <div className="flex space-x-2">
+              <LanguageSwitcher aria-label="Sprache ändern" />
+            </div>
+          </div>
+          <p className="text-lg text-gray-600 dark:text-gray-400">
+            {t('subtitle')}
+          </p>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Form Section */}
+          <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm">
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()} role="form" aria-label="QR Code Einstellungen">
+              {/* QR Type Selector */}
               <QRTypeSelector
                 selectedType={qrType}
                 onTypeChange={handleTypeChange}
                 aria-label="QR Code Typ auswählen"
               />
-              <LanguageSwitcher
-                aria-label="Sprache ändern"
-              />
-            </div>
 
-            {renderForm()}
+              {/* Dynamic Form */}
+              {renderForm()}
 
-            <div className="space-y-4">
+              {/* Logo Upload */}
               <div>
-                <label htmlFor="qr-color" className="block text-sm font-medium text-gray-300 mb-2">
-                  {t('colorPicker.qrColor')}
-                </label>
-                <ColorPicker
-                  color={color}
-                  onChange={handleColorChange}
-                  label={t('colorPicker.qrColor')}
-                  error={errors.color}
-                  aria-label="QR Code Farbe auswählen"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="icon-color" className="block text-sm font-medium text-gray-300 mb-2">
-                  {t('colorPicker.iconColor')}
-                </label>
-                <ColorPicker
-                  color={iconColor}
-                  onChange={handleIconColorChange}
-                  label={t('colorPicker.iconColor')}
-                  aria-label="Icon Farbe auswählen"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="logo-upload" className="block text-sm font-medium text-gray-300 mb-2">
-                  {t('fileUpload.label')}
-                </label>
                 <FileUpload
                   onIconSelect={handleIconSelect}
                   selectedFile={null}
-                  label={t('fileUpload.label')}
+                  label={t('form.logoLabel')}
                   error={errors.logo}
                   iconColor={iconColor}
                   aria-label="Logo hochladen"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowLogo((v) => !v)}
+                  className={`mt-2 w-full px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 ${showLogo ? 'bg-green-100 text-green-800 border-green-300 hover:bg-green-200' : 'bg-gray-100 text-gray-500 border-gray-300 hover:bg-gray-200'}`}
+                  aria-pressed={showLogo}
+                  aria-label={showLogo ? t('upload.removeImage') : t('form.logoLabel')}
+                >
+                  {showLogo ? t('upload.removeImage') : t('form.logoLabel')}
+                </button>
               </div>
 
-              <div>
-                <label htmlFor="qr-style" className="block text-sm font-medium text-gray-300 mb-2">
-                  {t('styleSelector.label')}
-                </label>
-                <QRStyleSelector
+              {/* QR Style Selector */}
+              <QRStyleSelector
+                bodyShape={bodyShape}
+                onBodyShapeChange={setBodyShape}
+                eyeFrameShape={eyeFrameShape}
+                onEyeFrameShapeChange={setEyeFrameShape}
+                eyeBallShape={eyeBallShape}
+                onEyeBallShapeChange={setEyeBallShape}
+                aria-label="QR Code Stil auswählen"
+              />
+
+              {/* Color Picker nebeneinander */}
+              <div className="flex flex-row gap-4">
+                <div className="flex-1">
+                  <ColorPicker
+                    color={color}
+                    onChange={handleColorChange}
+                    label={t('form.colorLabel')}
+                    error={errors.color}
+                    aria-label="QR Code Farbe auswählen"
+                  />
+                </div>
+                <div className="flex-1">
+                  <ColorPicker
+                    color={iconColor}
+                    onChange={handleIconColorChange}
+                    label={t('form.logoLabel') + ' (Icon-Farbe)'}
+                    dropdownDirection="up"
+                    aria-label="Icon Farbe auswählen"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          {/* Preview Section */}
+          <div className="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="space-y-6">
+              <div className="bg-emerald-50/50 dark:bg-emerald-900/10 rounded-lg shadow-lg p-6 border border-emerald-200 dark:border-emerald-800 backdrop-blur-sm">
+                <QRCodePreview
+                  value={debouncedQrValue}
+                  color={debouncedColor}
+                  iconSvg={showLogo ? coloredIconSvg : null}
+                  defaultLogoUrl={showLogo ? DEFAULT_LOGO_URL : undefined}
+                  size={256}
+                  isGenerating={isGenerating}
                   bodyShape={bodyShape}
                   eyeFrameShape={eyeFrameShape}
                   eyeBallShape={eyeBallShape}
-                  onBodyShapeChange={setBodyShape}
-                  onEyeFrameShapeChange={setEyeFrameShape}
-                  onEyeBallShapeChange={setEyeBallShape}
-                  aria-label="QR Code Stil auswählen"
+                  aria-label="QR Code Vorschau"
                 />
               </div>
-            </div>
-          </div>
 
-          <div className="flex flex-col items-center justify-center" role="region" aria-label="QR Code Vorschau">
-            <QRCodePreview
-              value={debouncedQrValue}
-              color={debouncedColor}
-              iconSvg={coloredIconSvg}
-              bodyShape={bodyShape}
-              eyeFrameShape={eyeFrameShape}
-              eyeBallShape={eyeBallShape}
-              isGenerating={isGenerating}
-              size={256}
-              aria-label="QR Code Vorschau"
-            />
+              {/* Quick Info */}
+              <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+                <h4 className="font-medium text-emerald-900 dark:text-emerald-100 mb-2">
+                  {qrType === 'wifi' && t('tips.wifi.title')}
+                  {qrType === 'vcard' && t('tips.vcard.title')}
+                  {qrType === 'email' && t('tips.email.title')}
+                  {qrType === 'url' && t('tips.url.title')}
+                </h4>
+                <ul className="text-sm text-emerald-800 dark:text-emerald-200 space-y-1">
+                  {qrType === 'wifi' && (
+                    <>
+                      {(t('tips.wifi.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
+                        <li key={index}>{tip}</li>
+                      ))}
+                    </>
+                  )}
+                  {qrType === 'vcard' && (
+                    <>
+                      {(t('tips.vcard.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
+                        <li key={index}>{tip}</li>
+                      ))}
+                    </>
+                  )}
+                  {qrType === 'email' && (
+                    <>
+                      {(t('tips.email.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
+                        <li key={index}>{tip}</li>
+                      ))}
+                    </>
+                  )}
+                  {qrType === 'url' && (
+                    <>
+                      {(t('tips.url.items', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
+                        <li key={index}>{tip}</li>
+                      ))}
+                    </>
+                  )}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

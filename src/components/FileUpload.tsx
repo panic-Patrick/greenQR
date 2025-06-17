@@ -52,6 +52,8 @@ interface FileUploadProps {
   label: string;
   error?: string;
   iconColor?: string;
+  setShowLogo: (show: boolean) => void;
+  showLogo: boolean;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -60,6 +62,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   label,
   error,
   iconColor = '#000000',
+  setShowLogo,
+  showLogo,
 }) => {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -170,6 +174,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     onIconSelect({ svgText, label: icon.label });
     setIconModalOpen(false);
     setSelectedIcon({ svgText, label: icon.label });
+    setShowLogo(true);
   };
 
   const handleIconColorChange = (color: string) => {
@@ -187,13 +192,36 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         {label}
       </label>
       
-      <button
-        type="button"
-        className="mb-2 w-full px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100"
-        onClick={() => setIconModalOpen(true)}
-      >
-        {t('form.logoLabel')} (Icon wählen)
-      </button>
+      <div className="flex gap-2 mb-2">
+        <button
+          type="button"
+          className="flex-1 px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100"
+          onClick={() => setIconModalOpen(true)}
+        >
+          {t('form.logoLabel')} (Icon wählen)
+        </button>
+
+        <button
+          type="button"
+          className="flex-1 px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 bg-green-50 text-green-800 border-green-300 hover:bg-green-100"
+          onClick={() => {
+            onIconSelect(null);
+            setSelectedIcon(null);
+            setShowLogo(true);
+          }}
+        >
+          {t('form.resetToSunflower')}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setShowLogo(false)}
+          className="flex-1 px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 bg-red-50 text-red-800 border-red-300 hover:bg-red-100"
+          aria-label={t('upload.removeImage')}
+        >
+          {t('upload.removeImage')}
+        </button>
+      </div>
       
       <div
         className={`

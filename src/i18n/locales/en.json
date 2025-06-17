@@ -18,6 +18,7 @@
     "logoLabel": "Center Logo (Optional)",
     "logoPlaceholder": "Upload PNG, JPG, or JPEG (max 2MB)",
     "logoError": "Only PNG, JPG, JPEG, and SVG files are allowed.",
+    "resetToSunflower": "Reset to Sunflower",
     "colorLabel": "QR Code Color",
     "colorPlaceholder": "Enter hex color",
     "selectColor": "Select color",

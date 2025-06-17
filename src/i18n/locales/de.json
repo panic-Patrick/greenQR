@@ -15,6 +15,7 @@
     "logoLabel": "Zentrales Logo (Optional)",
     "logoPlaceholder": "PNG, JPG oder JPEG hochladen (max. 2MB)",
     "logoError": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt.",
+    "resetToSunflower": "Zur Sonnenblume zurücksetzen",
     "colorLabel": "QR-Code Farbe",
     "colorPlaceholder": "Hex-Farbe eingeben",
     "selectColor": "Farbe auswählen",

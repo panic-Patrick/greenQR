@@ -326,17 +326,10 @@ export const QRGenerator: React.FC = () => {
                   label={t('form.logoLabel')}
                   error={errors.logo}
                   iconColor={iconColor}
+                  setShowLogo={setShowLogo}
+                  showLogo={showLogo}
                   aria-label="Logo hochladen"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowLogo((v) => !v)}
-                  className={`mt-2 w-full px-3 py-2 rounded-lg border text-sm font-medium transition-colors duration-200 ${showLogo ? 'bg-green-100 text-green-800 border-green-300 hover:bg-green-200' : 'bg-gray-100 text-gray-500 border-gray-300 hover:bg-gray-200'}`}
-                  aria-pressed={showLogo}
-                  aria-label={showLogo ? t('upload.removeImage') : t('form.logoLabel')}
-                >
-                  {showLogo ? t('upload.removeImage') : t('form.logoLabel')}
-                </button>
               </div>
 
               {/* QR Style Selector */}

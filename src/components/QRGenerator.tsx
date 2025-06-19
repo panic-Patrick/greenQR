@@ -350,7 +350,7 @@ export const QRGenerator: React.FC = () => {
               {/* Color Picker nebeneinander */}
               <div role="group" aria-labelledby="color-picker-heading">
                 <h3 id="color-picker-heading" className="sr-only">Farbauswahl</h3>
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1" role="group" aria-label="QR Code Farbe">
                     <ColorPicker
                       color={color}

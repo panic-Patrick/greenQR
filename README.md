@@ -2,6 +2,7 @@
 
 Ein modernes QR-Code Generator Tool, entwickelt mit React, TypeScript und Tailwind CSS.
 
+
 ## Features
 
 - QR-Code Generierung mit anpassbaren Optionen

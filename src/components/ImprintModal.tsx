@@ -15,7 +15,7 @@ export const ImprintModal = ({ isOpen, onClose }: ImprintModalProps) => {
       aria-modal="true"
       aria-labelledby="imprint-title"
     >
-      <div className="bg-gray-800 rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div className="bg-gray-800 rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 id="imprint-title" className="text-2xl font-bold text-white">Impressum</h2>
           <button
@@ -27,38 +27,74 @@ export const ImprintModal = ({ isOpen, onClose }: ImprintModalProps) => {
           </button>
         </div>
         
-        <div className="space-y-4 text-gray-300">
+        <div className="space-y-6 text-gray-300 text-sm leading-relaxed">
           <section aria-labelledby="imprint-address">
-            <h3 id="imprint-address" className="text-xl font-semibold mb-2">Angaben gemäß § 5 TMG</h3>
-            <p>Patrick Kämpf<br />
-            Mühlenweg 2<br />
-            57399 Kirchhundem</p>
+            <h3 id="imprint-address" className="text-xl font-semibold mb-3 text-white">Angaben gemäß § 5 TMG</h3>
+            <p className="mb-4">
+              Bündnis 90/Die Grünen Kirchhundem<br />
+              57399 Kirchhundem
+            </p>
+          </section>
+
+          <section aria-labelledby="imprint-represented">
+            <h3 id="imprint-represented" className="text-xl font-semibold mb-3 text-white">Vertreten durch</h3>
+            <p className="mb-4">Mike Warnecke (Fraktionsvorsitzender)</p>
           </section>
 
           <section aria-labelledby="imprint-contact">
-            <h3 id="imprint-contact" className="text-xl font-semibold mb-2">Kontakt</h3>
-            <p>E-Mail: info@kaempf.nrw</p>
+            <h3 id="imprint-contact" className="text-xl font-semibold mb-3 text-white">Kontakt</h3>
+            <p className="mb-4">Email: <a href="mailto:info@gruene-kirchhundem.de" className="text-blue-400 hover:text-blue-300 underline">info@gruene-kirchhundem.de</a></p>
           </section>
 
           <section aria-labelledby="imprint-responsible">
-            <h3 id="imprint-responsible" className="text-xl font-semibold mb-2">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-            <p>Patrick Kämpf<br />
-            Mühlenweg 2<br />
-            57399 Kirchhundem</p>
+            <h3 id="imprint-responsible" className="text-xl font-semibold mb-3 text-white">Redaktionell verantwortlich</h3>
+            <p className="mb-4">
+              Patrick Kämpf<br />
+              Email: <a href="mailto:patrick@kaempf.nrw" className="text-blue-400 hover:text-blue-300 underline">patrick@kaempf.nrw</a><br />
+              57399 Kirchhundem
+            </p>
           </section>
 
-          <section aria-labelledby="imprint-disclaimer">
-            <h3 id="imprint-disclaimer" className="text-xl font-semibold mb-2">Haftungsausschluss</h3>
-            <h4 className="text-lg font-semibold mb-2">Haftung für Inhalte</h4>
-            <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+          <section aria-labelledby="imprint-party">
+            <h3 id="imprint-party" className="text-xl font-semibold mb-3 text-white">Hinweis zur Partei</h3>
+            <p className="mb-4">
+              Diese Website wird betrieben von der Fraktion Bündnis 90/Die Grünen im Gemeinderat Kirchhundem. Die Inhalte stellen die Positionen und Aktivitäten der Fraktion in Kirchhundem dar.
+            </p>
+          </section>
+
+          <section aria-labelledby="imprint-hosting">
+            <h3 id="imprint-hosting" className="text-xl font-semibold mb-3 text-white">Hosting und technische Dienstleister</h3>
+            <p className="mb-4">Diese Website wird gehostet bei:</p>
             
-            <h4 className="text-lg font-semibold mb-2 mt-4">Haftung für Links</h4>
-            <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.</p>
+            <p className="mb-4">
+              <strong>Strato AG</strong><br />
+              Pascalstraße 10, 10587 Berlin, Deutschland
+            </p>
+            
+            <p className="mb-4">
+              Strato ist ein deutscher Hosting-Anbieter, der unsere Website bereitstellt. Weitere Informationen zu Strato finden Sie unter: <a href="https://www.strato.de" className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">https://www.strato.de</a>
+            </p>
+            
+            <p className="mb-4">
+              Für das Kontaktformular nutzen wir den Dienst "Formspree" der Formspree Inc. Dabei werden die über das Formular übermittelten Daten sicher verarbeitet und an uns weitergeleitet.
+            </p>
+            
+            <p className="mb-4">
+              Zum Schutz vor Spam verwenden wir hCaptcha, einen Dienst der Intuition Machines, Inc. hCaptcha ist ein datenschutzfreundlicher Captcha-Dienst, der in Deutschland betrieben wird.
+            </p>
           </section>
 
-          <section aria-labelledby="imprint-copyright">
-            <h3 id="imprint-copyright" className="text-xl font-semibold mb-2">Urheberrecht</h3>
-            <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+          <section aria-labelledby="imprint-dispute">
+            <h3 id="imprint-dispute" className="text-xl font-semibold mb-3 text-white">Streitschlichtung</h3>
+            <p className="mb-4">
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>
+            </p>
+            
+            <p className="mb-4">Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+            
+            <p className="mb-4">
+              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+            </p>
           </section>
         </div>
       </div>

@@ -13,7 +13,7 @@
     "urlPlaceholder": "URL oder Text für QR-Code eingeben",
     "urlError": "Bitte geben Sie eine gültige URL oder Text ein",
     "logoLabel": "Zentrales Logo (Optional)",
-    "logoPlaceholder": "PNG, JPG oder JPEG hochladen (max. 2MB)",
+    "logoPlaceholder": "PNG, JPG oder JPEG hochladen (max. 50MB)",
     "logoError": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt.",
     "resetToSunflower": "Zur Sonnenblume zurücksetzen",
     "colorLabel": "QR-Code Farbe",
@@ -98,7 +98,7 @@
     "invalidUrl": "Bitte geben Sie eine gültige URL ein",
     "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "invalidHex": "Bitte geben Sie eine gültige Hex-Farbe ein",
-    "fileTooLarge": "Dateigröße muss unter 10MB sein",
+    "fileTooLarge": "Dateigröße muss unter 50MB sein",
     "invalidFileType": "Nur PNG-, JPG-, JPEG- und SVG-Dateien sind erlaubt",
     "wifi": {
       "ssidRequired": "Netzwerkname (SSID) ist erforderlich",
@@ -122,7 +122,7 @@
     "dragAndDrop": " Datei hierher ziehen",
     "or": "oder",
     "removeImage": "Bild entfernen",
-    "fileTypes": "PNG, JPG, JPEG, SVG (max. 10MB)"
+    "fileTypes": "PNG, JPG, JPEG, SVG (max. 50MB)"
   },
   "tips": {
     "wifi": {

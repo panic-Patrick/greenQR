@@ -16,7 +16,7 @@
     "urlPlaceholder": "Enter URL or text to generate QR code",
     "urlError": "Please enter a valid URL or text",
     "logoLabel": "Center Logo (Optional)",
-    "logoPlaceholder": "Upload PNG, JPG, or JPEG (max 2MB)",
+    "logoPlaceholder": "Upload PNG, JPG, or JPEG (max 50MB)",
     "logoError": "Only PNG, JPG, JPEG, and SVG files are allowed.",
     "resetToSunflower": "Reset to Sunflower",
     "colorLabel": "QR Code Color",
@@ -101,7 +101,7 @@
     "invalidUrl": "Please enter a valid URL",
     "invalidEmail": "Please enter a valid email address",
     "invalidHex": "Please enter a valid hex color",
-    "fileTooLarge": "File size must be under 10MB",
+    "fileTooLarge": "File size must be under 50MB",
     "invalidFileType": "Only PNG, JPG, JPEG, and SVG files are allowed",
     "wifi": {
       "ssidRequired": "SSID is required",
@@ -125,7 +125,7 @@
     "dragAndDrop": " drag and drop",
     "or": "or",
     "removeImage": "Remove image",
-    "fileTypes": "PNG, JPG, JPEG, SVG (max 10MB)"
+    "fileTypes": "PNG, JPG, JPEG, SVG (max 50MB)"
   },
   "tips": {
     "wifi": {

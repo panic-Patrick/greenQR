@@ -122,7 +122,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     if (file) {
       // SVGs erlauben
       const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
-      const maxSize = 2 * 1024 * 1024; // 2MB
+      const maxSize = 50 * 1024 * 1024; // 50MB
       if (validTypes.includes(file.type) && file.size <= maxSize) {
         if (file.type === 'image/svg+xml') {
           // For SVG files, read the content and pass it as svgText

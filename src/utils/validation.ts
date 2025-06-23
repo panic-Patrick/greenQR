@@ -1,9 +1,17 @@
-export const isValidUrl = (string: string): boolean => {
+export const isValidUrl = (url: string): boolean => {
+  if (!url.trim()) {
+    return false;
+  }
   try {
-    new URL(string);
+    new URL(url);
     return true;
   } catch (_) {
-    return false;
+    try {
+      new URL(`https://${url}`);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 };
 
@@ -12,8 +20,9 @@ export const isValidEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-export const isValidHexColor = (color: string): boolean => {
-  return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
+export const isValidHexColor = (hex: string): boolean => {
+  const hexRegex = /^#[0-9a-fA-F]{6}$/;
+  return hexRegex.test(hex);
 };
 
 export const isValidImageFile = (file: File): boolean => {

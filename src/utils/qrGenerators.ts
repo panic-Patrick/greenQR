@@ -1,5 +1,10 @@
 import { WiFiConfig, VCardConfig, EmailConfig } from '../types/qr';
 
+const escapeVCard = (text: string | undefined): string => {
+  if (!text) return '';
+  return text.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+};
+
 export const generateWiFiString = (config: WiFiConfig): string => {
   const { ssid, password, security, hidden } = config;
   
@@ -31,52 +36,59 @@ export const generateVCardString = (config: VCardConfig): string => {
     country
   } = config;
   
-  const fullName = `${firstName} ${lastName}`.trim();
-  const formattedAddress = [address, city, state, zip, country]
-    .filter(Boolean)
-    .join(', ');
-  
+  const titleMap = {
+    'mr': 'Herr',
+    'mrs': 'Frau',
+    'ms': 'Frau',
+    'dr': 'Dr.',
+    'prof': 'Prof.',
+    'none': ''
+  };
+  const honorificPrefix = titleMap[titleType] || '';
+  const fullName = `${honorificPrefix} ${firstName} ${lastName}`.trim().replace(/\s+/g, ' ');
+
   let vcard = 'BEGIN:VCARD\n';
   vcard += 'VERSION:3.0\n';
   
-  // Add title if selected
-  if (titleType !== 'none') {
-    const titleMap = {
-      'mr': 'Herr',
-      'mrs': 'Frau',
-      'ms': 'Frau',
-      'dr': 'Dr.',
-      'prof': 'Prof.'
-    };
-    vcard += `TITLE:${titleMap[titleType]}\n`;
+  const charset = ';CHARSET=UTF-8';
+
+  vcard += `N${charset}:${escapeVCard(lastName)};${escapeVCard(firstName)};;${escapeVCard(honorificPrefix)};\n`;
+  vcard += `FN${charset}:${escapeVCard(fullName)}\n`;
+  
+  if (organization || department) {
+    vcard += `ORG${charset}:${escapeVCard(organization || '')}${department ? ';' + escapeVCard(department) : ''}\n`;
   }
+
+  if (title) vcard += `TITLE${charset}:${escapeVCard(title)}\n`;
+  if (alternativeName) vcard += `NICKNAME${charset}:${escapeVCard(alternativeName)}\n`;
   
-  vcard += `FN:${fullName}\n`;
-  vcard += `N:${lastName};${firstName};;;\n`;
-  
-  if (organization) vcard += `ORG:${organization}\n`;
-  if (department) vcard += `ORG:${organization};${department}\n`;
-  if (title) vcard += `TITLE:${title}\n`;
-  if (alternativeName) vcard += `NICKNAME:${alternativeName}\n`;
-  if (notes) vcard += `NOTE:${notes}\n`;
-  
-  // Add all phone numbers
   phones.forEach(phone => {
     if (phone.trim()) {
-      vcard += `TEL:${phone}\n`;
+      vcard += `TEL;TYPE=HOME,VOICE:${escapeVCard(phone)}\n`;
     }
   });
   
-  // Add all email addresses
   emails.forEach(email => {
     if (email.trim()) {
-      vcard += `EMAIL:${email}\n`;
+      vcard += `EMAIL;TYPE=INTERNET:${email}\n`;
     }
   });
   
-  if (website) vcard += `URL:${website}\n`;
-  if (formattedAddress) vcard += `ADR:;;${formattedAddress};;;;\n`;
+  if (website) {
+    let formattedUrl = website;
+    if (!/^https?:\/\//i.test(website)) {
+      formattedUrl = `https://${website}`;
+    }
+    vcard += `URL:${formattedUrl}\n`;
+  }
   
+  if (address || city || state || zip || country) {
+    vcard += `ADR${charset};TYPE=HOME:;;${escapeVCard(address)};${escapeVCard(city)};${escapeVCard(state)};${escapeVCard(zip)};${escapeVCard(country)}\n`;
+  }
+  
+  if (notes) vcard += `NOTE${charset}:${escapeVCard(notes)}\n`;
+  
+  vcard += `REV:${new Date().toISOString()}\n`;
   vcard += 'END:VCARD';
   
   return vcard;

@@ -90,6 +90,9 @@ export const QRGenerator: React.FC = () => {
   const qrValue = useMemo(() => {
     switch (qrType) {
       case 'url':
+        if (url && !/^https?:\/\//i.test(url)) {
+          return `https://${url}`;
+        }
         return url;
       case 'wifi':
         return generateWiFiString(wifiConfig);

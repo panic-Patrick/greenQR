@@ -30,10 +30,6 @@ function mapEyeFrameShape(shape: QREyeFrameShape): any {
     // Map unsupported to closest
     case 'circle':
       return 'dot';
-    case 'frame13':
-    case 'frame14':
-    case 'frame15':
-      return 'square';
     default:
       return 'square';
   }
@@ -50,10 +46,6 @@ function mapEyeBallShape(shape: QREyeBallShape): any {
       return shape;
     // Map unsupported to closest
     case 'circle':
-      return 'dot';
-    case 'ball13':
-    case 'ball14':
-    case 'ball15':
       return 'dot';
     default:
       return 'square';
@@ -82,10 +74,14 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
     let isMounted = true;
     const createQRCode = (image: string | undefined) => {
       if (!isMounted) return;
+      
+      // Force UTF-8 encoding for special characters
+      const utf8Value = unescape(encodeURIComponent(value));
+
       qrCodeRef.current = new QRCodeStyling({
         width: size,
         height: size,
-        data: value,
+        data: utf8Value,
         type: 'svg',
         dotsOptions: {
           color: color,
@@ -104,6 +100,7 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
         },
         qrOptions: {
           errorCorrectionLevel: 'H',
+          mode: 'Byte',
         },
       });
       containerRef.current.innerHTML = '';

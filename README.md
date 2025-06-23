@@ -244,7 +244,7 @@ Bitte erstellen Sie ein Issue mit:
 
 ## 📄 Lizenz
 
-Dieses Projekt ist unter der MIT-Lizenz lizenziert.
+Dieses Projekt ist unter der GPLv3-Lizenz lizenziert. Siehe die `LICENSE`-Datei für weitere Details.
 
 ## 🙏 Danksagungen
 

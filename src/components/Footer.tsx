@@ -25,6 +25,9 @@ export const Footer = () => {
             Impressum
           </button>
         </nav>
+        <p className="text-center text-sm text-gray-500 mt-4">
+          © {new Date().getFullYear()} Patrick Kämpf
+        </p>
       </div>
 
       <PrivacyModal

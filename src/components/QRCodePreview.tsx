@@ -70,7 +70,9 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
   const [exportFormat, setExportFormat] = useState<'png' | 'svg'>('png');
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const currentContainer = containerRef.current;
+    if (!currentContainer) return;
+    
     let isMounted = true;
     const createQRCode = (image: string | undefined) => {
       if (!isMounted) return;
@@ -103,8 +105,8 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({
           mode: 'Byte',
         },
       });
-      containerRef.current.innerHTML = '';
-      qrCodeRef.current.append(containerRef.current);
+      currentContainer.innerHTML = '';
+      qrCodeRef.current.append(currentContainer);
     };
     if (iconSvg) {
       // Prüfen, ob es sich um eine Base64-Bild-URL handelt

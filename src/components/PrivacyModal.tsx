@@ -89,59 +89,8 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
             </p>
           </section>
 
-          <section aria-labelledby="privacy-contact">
-            <h3 id="privacy-contact" className="text-xl font-semibold mb-3 text-white">3. Kontaktformular (Formspree)</h3>
-            <p className="mb-4">
-              Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
-            </p>
-
-            <h4 className="text-lg font-medium mb-2 text-white">Verarbeitung durch Formspree</h4>
-            <p className="mb-4">
-              Für die Verarbeitung der Kontaktformular-Daten nutzen wir den Dienst "Formspree" der Formspree Inc. Wenn Sie das Kontaktformular absenden, werden folgende Daten an Formspree übermittelt und dort verarbeitet:
-            </p>
-            <ul className="list-disc list-inside mb-4 space-y-1 ml-4">
-              <li>Name</li>
-              <li>E-Mail-Adresse</li>
-              <li>Betreff der Nachricht</li>
-              <li>Nachrichteninhalt</li>
-              <li>IP-Adresse</li>
-              <li>Zeitstempel der Übermittlung</li>
-              <li>hCaptcha-Verifikationstoken</li>
-            </ul>
-            <p className="mb-4">
-              Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO auf Grundlage Ihrer freiwillig erteilten Einwilligung. Die erteilte Einwilligung können Sie jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt.
-            </p>
-            <p className="mb-4">
-              Die über das Kontaktformular übermittelten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z. B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.
-            </p>
-            <p className="mb-4">
-              Weitere Informationen zur Datenverarbeitung durch Formspree finden Sie in deren Datenschutzerklärung: <a href="https://formspree.io/legal/privacy-policy/" className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">https://formspree.io/legal/privacy-policy/</a>
-            </p>
-          </section>
-
-          <section aria-labelledby="privacy-captcha">
-            <h3 id="privacy-captcha" className="text-xl font-semibold mb-3 text-white">4. hCaptcha</h3>
-            <p className="mb-4">
-              Wir verwenden den hCaptcha-Dienst (im Folgenden "hCaptcha") der Intuition Machines, Inc., um zu überprüfen, ob die Eingabe auf unserer Website (z.B. in einem Kontaktformular) durch einen Menschen oder durch ein automatisiertes Programm erfolgt. Hierdurch sollen Spam-Nachrichten und der Missbrauch unserer Website verhindert werden.
-            </p>
-
-            <h4 className="text-lg font-medium mb-2 text-white">Datenverarbeitung durch hCaptcha</h4>
-            <p className="mb-4">
-              hCaptcha analysiert das Verhalten des Websitebesuchers anhand verschiedener Merkmale. Diese Analyse beginnt automatisch, sobald der Websitebesucher die Website betritt. Zur Analyse wertet hCaptcha verschiedene Informationen aus (z. B. IP-Adresse, Verweildauer des Websitebesuchers auf der Website oder vom Nutzer getätigte Mausbewegungen).
-            </p>
-            <p className="mb-4">
-              Die bei der Analyse erfassten Daten werden an hCaptcha weitergeleitet. hCaptcha ist ein datenschutzfreundlicher Captcha-Dienst, der besonderen Wert auf den Schutz der Privatsphäre legt.
-            </p>
-            <p className="mb-4">
-              Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse daran, seine Webangebote vor missbräuchlicher automatisierter Ausspähung und vor SPAM zu schützen.
-            </p>
-            <p className="mb-4">
-              Weitere Informationen zu hCaptcha und der Datenschutzerklärung von hCaptcha entnehmen Sie folgenden Links: <a href="https://www.hcaptcha.com/privacy" className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">https://www.hcaptcha.com/privacy</a> und <a href="https://www.hcaptcha.com/terms" className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">https://www.hcaptcha.com/terms</a>
-            </p>
-          </section>
-
           <section aria-labelledby="privacy-general">
-            <h3 id="privacy-general" className="text-xl font-semibold mb-3 text-white">5. Allgemeine Hinweise und Pflichtinformationen</h3>
+            <h3 id="privacy-general" className="text-xl font-semibold mb-3 text-white">3. Allgemeine Hinweise und Pflichtinformationen</h3>
             <h4 className="text-lg font-medium mb-2 text-white">Datenschutz</h4>
             <p className="mb-4">
               Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
@@ -152,7 +101,7 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
           </section>
 
           <section aria-labelledby="privacy-data-collection">
-            <h3 id="privacy-data-collection" className="text-xl font-semibold mb-3 text-white">6. Datenerfassung auf dieser Website</h3>
+            <h3 id="privacy-data-collection" className="text-xl font-semibold mb-3 text-white">4. Datenerfassung auf dieser Website</h3>
             <h4 className="text-lg font-medium mb-2 text-white">Cookies und lokale Speicherung</h4>
             <p className="mb-4">
               Unsere Internetseiten verwenden so genannte "Cookies" und lokale Speichertechnologien. Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert.
@@ -174,7 +123,7 @@ export const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
           </section>
 
           <section aria-labelledby="privacy-plugins">
-            <h3 id="privacy-plugins" className="text-xl font-semibold mb-3 text-white">7. Plugins und Tools</h3>
+            <h3 id="privacy-plugins" className="text-xl font-semibold mb-3 text-white">5. Plugins und Tools</h3>
             <h4 className="text-lg font-medium mb-2 text-white">Lokale Schriftarten</h4>
             <p className="mb-4">
               Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten lokale Schriftarten, die auf unserem Server gespeichert sind. Es werden keine externen Schriftarten von Drittanbietern geladen, wodurch keine Daten an externe Server übertragen werden.
